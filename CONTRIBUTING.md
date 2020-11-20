@@ -9,6 +9,7 @@ Prior to creating a pull request, file an issue and ensure that someone from the
 - New R code should follow the tidyverse [style guide](https://style.tidyverse.org/).
 - We use [roxygen2](https://cran.r-project.org/web/packages/roxygen2/index.html), with [Markdown](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd-formatting.html) syntax, for documentation.
 - We use [testthat](https://cran.r-project.org/web/packages/testthat/index.html). Contributions with test cases included are easier to accept.
+- We use the PEP8 style guide for Python code.
 
 We will review pull requests within 7 days.
 
