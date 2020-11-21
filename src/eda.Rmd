@@ -11,10 +11,8 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message=FALSE)
 library(feather)
 library(tidyverse)
 library(knitr)
-# library(caret)
-# library(ggridges)
-# library(ggthemes)
-# theme_set(theme_minimal())
+library(ggplot2)
+library(reshape2)
 set.seed(2020)
 ```
 
@@ -27,12 +25,53 @@ census_data
 
 The data set used in this project is of income census created by Ronny Kohavi and Barry Becker. It was sourced from the UCI Machine Learning Repository [@Dua2019] and can be found [here](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/), specifically [this file](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data). The data contains information such as age, workclass, education etc. The target variable is income and it is divided into two categories (<=50K and >50K). The ultimate aim is to train a classifier to predict the income class. There are `r nrow(census_data)` observations in the data set, and `r ncol(census_data) - 1` features.
 
-## Including Plots
+## Column Data types and missing values
 
-You can also embed plots, for example:
+```{r echo=FALSE}
+census_data <- census_data %>%
+  mutate_all(~replace(., . == " ?", NA))
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+column_types <- split(names(census_data),sapply(census_data, function(x) paste(class(x), collapse=" ")))
+
+cat_columns <- column_types$character
+
+numeric_columns <- column_types$integer
+
+kable(bind_rows(Column = colnames(census_data), missingValues = colSums(is.na(census_data))),
+      caption = "Table 2. Count of missing values for each feature")
+```
+From the above results, we can see that the numeric columns do not have any missing values. Only three categorical columns, workclass, occupation and native.country have some missing values. We can use the most frequent strategy to impute these missing values.
+
+The column education is just a string representation of the column education.num and hence can be dropped.
+
+## Examining if there is any class imbalance
+```{r echo=FALSE}
+
+results <- census_data %>%
+  group_by(income) %>%
+  summarise(no_of_rows = length(income))
+
+kable(bind_rows(income = results$income, count = results$no_of_rows),
+      caption = "Table 2. Counts of observation for each class")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+From the above table, we can notice that class imbalance is significant and certain techniques have to be employed to address class imbalance. This will help improve the model performance.
+
+## Correlation Heatmap for numeric variables
+```{r echo=FALSE}
+
+numeric_data <- census_data[, numeric_columns]
+cormat <- round(cor(numeric_data),2)
+melted_cormat <- melt(cormat)
+ggplot(data = melted_cormat, aes(x=Var1, y=Var2, fill=value)) + 
+  geom_tile()
+
+```
+From the above correlation heatmap, we can observe that none of the numeric variables are highly correlated.
+By general observation of the dataset, we can  infer that the numeric values are on different scales and need to be scaled.
+
+
+
+
+
