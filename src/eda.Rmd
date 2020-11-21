@@ -1,0 +1,38 @@
+---
+title: "Exploratory data analysis of the Census Income data set"
+output:
+  html_document:
+    df_print: paged
+bibliography: null
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message=FALSE)
+library(feather)
+library(tidyverse)
+library(knitr)
+# library(caret)
+# library(ggridges)
+# library(ggthemes)
+# theme_set(theme_minimal())
+set.seed(2020)
+```
+
+# Summary of the data set
+
+```{r load data}
+census_data <- read.csv("../data/adult.csv", header = FALSE, col.names = c("age", "workclass", "fnlwgt", "education", "education-num", "marital-status", "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country", "income"))
+census_data
+```
+
+The data set used in this project is of income census created by Ronny Kohavi and Barry Becker. It was sourced from the UCI Machine Learning Repository [@Dua2019] and can be found [here](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/), specifically [this file](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data). The data contains information such as age, workclass, education etc. The target variable is income and it is divided into two categories (<=50K and >50K). The ultimate aim is to train a classifier to predict the income class. There are `r nrow(census_data)` observations in the data set, and `r ncol(census_data) - 1` features.
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
