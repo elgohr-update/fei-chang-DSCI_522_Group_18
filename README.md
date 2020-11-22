@@ -10,6 +10,23 @@ For analyzing the dataset and solve our predictive problem, we plan to build a c
 
 ## EDA
 
+First, we start our exploratory data analysis in checking the distribution of our target values.
+
+Income categories | Number of Observations
+------------ | -------------
+"<=50K" | 24720
+">50K"  | 7841
+
+From the above table, we can notice that there is a significant imbalance in the distribution of target values. Also, in particular, we are more interested in the small group of people who make more than 50K with their incomes as we want to analyze and discover the factors that contribute to this huge earning. Therefore, we will need to employ certain techniques later to address this class imbalance.
+
+
+Second, we built a correlation heatmap for numerical features in the data. 
+
+![Image of Correlation HeatMap](https://raw.githubusercontent.com/fei-chang/DSCI_522_Group_18/main/img/Correlation_HeatMap.png)
+
+From the above figure, it is not difficult to observe that there exists no strong correlation between any two of these numerical features. 
+
+
 The full EDA result is in the ./src folder
 
 ## Citation
