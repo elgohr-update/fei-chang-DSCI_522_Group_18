@@ -14,8 +14,8 @@ First, we start our exploratory data analysis in checking the distribution of ou
 
 Income categories | Number of Observations
 ------------ | -------------
-<=50K | 24720
->50K  | 7841
+"<=50K" | 24720
+">50K"  | 7841
 
 From the above table, we can notice that there is a significant imbalance in the distribution of target values. Also, in particular, we are more interested in the small group of people who make more than 50K with their incomes as we want to analyze and discover the factors that contribute to this huge earning. Therefore, we will need to employ certain techniques later to address this class imbalance.
 
