@@ -22,8 +22,7 @@ From the above table, we can notice that there is a significant imbalance in the
 
 Second, we built a correlation heatmap for numerical features in the data. 
 
-![Image of Correlation HeatMap]
-(img/Correlation_HeatMap.png)
+![Image of Correlation HeatMap](https://raw.githubusercontent.com/fei-chang/DSCI_522_Group_18/main/img/Correlation_HeatMap.png)
 
 From the above figure, it is not difficult to observe that there exists no strong correlation between any two of these numerical features. 
 
