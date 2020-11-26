@@ -20,8 +20,9 @@ To replicate the anlaysis, please clone this Github repository, install the depe
 python src/download_data.py --url=https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data --out_file=data/raw/adult.csv
 ```
 
-
 ## Dependencies
+
+x
 
 ## Citation
 Ron Kohavi, "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid", Proceedings of the Second International Conference on Knowledge Discovery and Data Mining, 1996
