@@ -59,6 +59,10 @@ kable(bind_rows(income = results$income, count = results$no_of_rows),
 From the above table, we can notice that class imbalance is significant and certain techniques have to be employed to address class imbalance. This will help improve the model performance.
 
 ## Correlation Heatmap for numeric variables
+
+A regression coefficient is interpreted as "the change in the output for every 1 unit change in an input variable, while holding all other input variables constant". However, when two numeric input variables are highly correlated, it is almost impossible to change the value of one input variable without changing the other. Hence, the coefficients become very sensitive to small changes in the model and the coefficient estimates tend to swing wildly.
+
+Therefore, it is important to check the dataset for the presence of collinearity.
 ```{r echo=FALSE}
 
 numeric_data <- census_data[, numeric_columns]
@@ -69,7 +73,17 @@ ggplot(data = melted_cormat, aes(x=Var1, y=Var2, fill=value)) +
 
 ```
 From the above correlation heatmap, we can observe that none of the numeric variables are highly correlated.
-By general observation of the dataset, we can  infer that the numeric values are on different scales and need to be scaled.
+
+
+## Exploring the relationship between age and income levels
+```{r }
+boxplot (age ~ income, data = census_data, 
+     main = "Age distribution for different income levels",
+     xlab = "Income Levels", ylab = "Age", col = "salmon")
+
+```
+From the above plot, it can be inferred that, in general as age increases, i.e. experience level increases, there tends to be higher income levels.
+
 
 
 
