@@ -19,7 +19,7 @@ set.seed(2020)
 # Summary of the data set
 
 ```{r load data}
-census_data <- read.csv("../data/adult.csv", header = FALSE, col.names = c("age", "workclass", "fnlwgt", "education", "education-num", "marital-status", "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country", "income"))
+census_data <- read.csv("../data/raw/adult.csv", header = FALSE, col.names = c("age", "workclass", "fnlwgt", "education", "education-num", "marital-status", "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country", "income"))
 census_data
 ```
 
@@ -83,6 +83,8 @@ boxplot (age ~ income, data = census_data,
 
 ```
 From the above plot, it can be inferred that, in general as age increases, i.e. experience level increases, there tends to be higher income levels.
+
+
 
 
 
