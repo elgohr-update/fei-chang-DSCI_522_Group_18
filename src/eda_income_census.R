@@ -25,6 +25,14 @@ main <- function(train, out_dir) {
          plot1,
          width = 8, 
          height = 10)
+  
+  plot2 <- boxplot (`hours.per.week` ~ income, data = census_data, 
+                    main = "Work Hours distribution for different income levels",
+                    xlab = "Income Levels", ylab = "Age", col = "salmon")
+  ggsave(paste0(out_dir, "/work-hours_and_income.png"), 
+         plot2,
+         width = 8, 
+         height = 10)
 }
 
 main(opt[["--train"]], opt[["--out_dir"]])

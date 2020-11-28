@@ -85,9 +85,18 @@ boxplot (age ~ income, data = census_data,
 From the above plot, it can be inferred that, in general as age increases, i.e. experience level increases, there tends to be higher income levels.
 
 
+## Exploring the relationship between education and income levels
 
+For the purpose of exploring the relationship between working hours per week and income levels
 
+```{r}
 
+boxplot (`hours.per.week` ~ income, data = census_data, 
+     main = "Work Hours distribution for different income levels",
+     xlab = "Income Levels", ylab = "Age", col = "salmon")
+
+```
+Individuals with income >50k have longer average working hours per week than individuals with <50k. But there are some individuals who have income <50k, but have higher work hours.
 
 
 
