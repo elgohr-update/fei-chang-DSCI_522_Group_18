@@ -77,10 +77,15 @@ From the above correlation heatmap, we can observe that none of the numeric vari
 
 ## Exploring the relationship between age and income levels
 ```{r }
-boxplot (age ~ income, data = census_data, 
-     main = "Age distribution for different income levels",
-     xlab = "Income Levels", ylab = "Age", col = "salmon")
+# boxplot (age ~ income, data = census_data, 
+#      main = "Age distribution for different income levels",
+#      xlab = "Income Levels", ylab = "Age", col = "salmon")
 
+  ggplot(census_data, aes(x = income, y = age)) +
+    geom_boxplot() +
+    ggtitle("Age distribution for different income levels") +
+    xlab("Income Levels") +
+    ylab("Age")
 ```
 From the above plot, it can be inferred that, in general as age increases, i.e. experience level increases, there tends to be higher income levels.
 
@@ -91,9 +96,11 @@ For the purpose of exploring the relationship between working hours per week and
 
 ```{r}
 
-boxplot (`hours.per.week` ~ income, data = census_data, 
-     main = "Work Hours distribution for different income levels",
-     xlab = "Income Levels", ylab = "Age", col = "salmon")
+ggplot(census_data, aes(x = income, y = `hours.per.week`)) +
+    geom_boxplot() +
+    ggtitle("Work Hours distribution for different income levels") +
+    xlab("Income Levels") +
+    ylab("Work Hours per week")
 
 ```
 Individuals with income >50k have longer average working hours per week than individuals with <50k. But there are some individuals who have income <50k, but have higher work hours.

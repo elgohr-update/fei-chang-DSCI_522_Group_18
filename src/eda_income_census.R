@@ -8,31 +8,41 @@ Options:
 --out_dir=<out_dir> Path to directory where the plots should be saved
 " -> doc
 
-library(feather)
 library(tidyverse)
 library(docopt)
+library(knitr)
+library(ggplot2)
+library(reshape2)
+library(cowplot)
 theme_set(theme_minimal())
 
 opt <- docopt(doc)
 
 main <- function(train, out_dir) {
-  
+  x_train <- read_csv(train) %>% column_to_rownames(., var = "X1")
+  x_train$target = as.factor(x_train$target)
   # visualize age distribution for income levels
-  plot1 <- boxplot (age ~ income, data = train, 
-           main = "Age distribution for different income levels",
-           xlab = "Income Levels", ylab = "Age", col = "salmon")
-  ggsave(paste0(out_dir, "/age_and_income.png"), 
-         plot1,
-         width = 8, 
-         height = 10)
+  plot1 <- ggplot(x_train, aes(x = target, y = age)) +
+    geom_boxplot() +
+    ggtitle("Age distribution for different income levels") +
+    xlab("Income Levels") +
+    ylab("Age")
   
-  plot2 <- boxplot (`hours.per.week` ~ income, data = census_data, 
-                    main = "Work Hours distribution for different income levels",
-                    xlab = "Income Levels", ylab = "Age", col = "salmon")
-  ggsave(paste0(out_dir, "/work-hours_and_income.png"), 
-         plot2,
-         width = 8, 
-         height = 10)
+  ggsave(file = paste0(out_dir, "/age.png"),
+         plot = plot1,
+         width = 5,
+         height = 5)
+
+  plot2 <- ggplot(x_train, aes(x = target, y = hours_per_week)) +
+    geom_boxplot() +
+    ggtitle("Work Hours distribution for different income levels") +
+    xlab("Income Levels") +
+    ylab("Work Hours per week")
+
+  ggsave(file = paste0(out_dir, "/work-hours.png"),
+         plot = plot2,
+         width = 5,
+         height = 5)
 }
 
 main(opt[["--train"]], opt[["--out_dir"]])

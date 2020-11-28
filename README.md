@@ -29,10 +29,10 @@ Python src/preprocess.py --input=data/raw/adult.csv --out_dir=data/processed
 Rscript src/eda_income_census.R --train=data/processed/training.csv --out_dir=results
 
 # tune model
-Python src/predict_model.python --train=data/processed/training.csv --out_dir=results
+Python src/predict_model.py --train=data/processed/training.csv --out_dir=results
 
 # test model
-Rscript src/test_results.python --test=data/processed/test.csv --out_dir=results
+Rscript src/test_results.py --test=data/processed/test.csv --out_dir=results
 
 # render final report
 Rscript -e "rmarkdown::render('doc/income_census_report.Rmd', output_format = 'github_document')"
