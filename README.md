@@ -20,7 +20,7 @@ To replicate the anlaysis, please clone this Github repository, install the depe
 python src/download_data.py --url=https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data --out_file=data/raw/adult.csv
 
 # run eda report
-Rscript -e "rmarkdown::render('src/breast_cancer_eda.Rmd')"
+Rscript -e "rmarkdown::render('src/eda.Rmd')"
 
 # pre-process data 
 Python src/preprocess.py --input=data/raw/adult.csv --out_dir=data/processed 
