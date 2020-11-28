@@ -1,4 +1,4 @@
-# author: Fei Chang
+# author: Fei Chang, Yanhua Chen
 # date: 2020-11-27
 
 """Fits a logistic regression classifier model on the pre-processed training data.

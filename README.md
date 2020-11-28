@@ -3,7 +3,7 @@ Co-authors: Aishwarya Gopal, Fei Chang, Yanhua Chen
 
 ## About
 
-Here we attempt to build a classification model using the Logistic Regression algorithm which uses a set of features like age, workclass, education etc to classify the income levels of an indivduals into one of the two categories: \>\$50k/year or \<=\$50k/year.
+Here we attempt to build a classification model using the Logistic Regression algorithm which uses a set of features like age, workclass, education etc to classify the income levels of an indivduals into one of the two categories: \>\$50k/year or \<=\$50k/year (we use "1" to represent \>\$50k/year, and "0" to represent \<=\$50k/year).
 
 The Census Income Dataset is created by Ronny Kohavi and Barry Becker, and sourced from the UCI Machine Learning Repository [http://archive.ics.uci.edu/ml]. This is a classification dataset and we will complete a classification task to predict whether or not a person can earn more than $50k/yr for this project. We will use the binary attribute "income" as our target, which includes two values: ">50K" and "<=50K". There are 14 explanatory variables in the dataset, 6 are numeric features and 8 are categorical features. Each row contains one observation with the 14 explanatory variables(personal information) and the relative income status. There are 48842 observations in the dataset.
 
@@ -32,7 +32,7 @@ Rscript src/eda_income_census.R --train=data/processed/training.csv --out_dir=re
 Python src/predict_model.py --train=data/processed/training.csv --out_dir=results
 
 # test model
-Rscript src/test_results.py --test=data/processed/test.csv --out_dir=results
+Python src/test_results.py --test=data/processed/test.csv --out_dir=results
 
 # render final report
 Rscript -e "rmarkdown::render('doc/income_census_report.Rmd', output_format = 'github_document')"
