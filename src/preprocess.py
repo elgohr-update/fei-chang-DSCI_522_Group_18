@@ -6,8 +6,8 @@ Writes the training and test data to separate csv files.
 Usage: src/preprocess.py --input_file=<input_file> --out_dir=<out_dir>
 
 Options:
---input_file=<input_file>              URL from where to download the data (must be in standard csv format)
---out_dir=<out_dir>    Path (including filename) of where to locally write the file
+--input_file=<input_file>          Input raw data file in csv file.
+--out_dir=<out_dir>                Path (including filename) of where to locally write the file
 """
   
 from docopt import docopt
@@ -26,7 +26,7 @@ from sklearn.preprocessing import (
     OrdinalEncoder,
     StandardScaler,
 )
-from sklearn.linear_model import Ridge, RidgeCV, LogisticRegression
+from sklearn.linear_model import LogisticRegression
 
 opt = docopt(__doc__)
 
