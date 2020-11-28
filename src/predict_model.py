@@ -44,11 +44,11 @@ def main(train, out_dir):
 	
 	try:
 		dump(log_clf, out_dir+'/final_model.joblib')
-		scores_df.to_csv(out_dir+"cross_validate_scores.csv")
+		scores_df.to_csv(out_dir+"/cross_validate_scores.csv")
 	except:
 		os.makedirs(out_dir)
 		dump(log_clf, out_dir+'/final_model.joblib')
-		scores_df.to_csv(out_dir+"cross_validate_scores.csv")
+		scores_df.to_csv(out_dir+"/cross_validate_scores.csv")
 
 	
 
