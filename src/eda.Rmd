@@ -85,7 +85,7 @@ boxplot (age ~ income, data = census_data,
 From the above plot, it can be inferred that, in general as age increases, i.e. experience level increases, there tends to be higher income levels.
 
 
-## Exploring the relationship between education and income levels
+## Exploring the relationship between Work hours per week and income levels
 
 For the purpose of exploring the relationship between working hours per week and income levels
 
