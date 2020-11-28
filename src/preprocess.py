@@ -7,7 +7,7 @@ Usage: src/preprocess.py --input_file=<input_file> --out_dir=<out_dir>
 
 Options:
 --input_file=<input_file>          Input raw data file in csv file.
---out_dir=<out_dir>                Path (including filename) of where to locally write the file
+--out_dir=<out_dir>                Path to directory where the processed data should be written
 """
   
 from docopt import docopt
