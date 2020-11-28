@@ -2,7 +2,7 @@
 # date: 2020-11-26
 
 """Cleans, splits and pre-processes (scales) the Census Income Dataset(from https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data).
-Writes the training and test data to separate feather files.
+Writes the training and test data to separate csv files.
 Usage: src/preprocess.py --input_file=<input_file> --out_dir=<out_dir>
 
 Options:
