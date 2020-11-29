@@ -75,10 +75,8 @@ From the above correlation heatmap, we can observe that none of the numeric vari
 
 
 ## Exploring the relationship between age and income levels
-```{r }
-# boxplot (age ~ income, data = census_data, 
-#      main = "Age distribution for different income levels",
-#      xlab = "Income Levels", ylab = "Age", col = "salmon")
+```{r}
+
 
   ggplot(census_data, aes(x = income, y = age)) +
     geom_boxplot() +
