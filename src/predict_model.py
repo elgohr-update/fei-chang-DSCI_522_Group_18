@@ -17,7 +17,9 @@ import os
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import cross_val_score, cross_validate
+from sklearn.dummy import DummyClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from joblib import dump, load
 
 opt = docopt(__doc__)
@@ -34,28 +36,44 @@ def main(train, out_dir):
 	X_train, y_train = train_df.drop(columns = ["target"]), train_df["target"]
 
 	#Create the logistic regression model
-	log_clf = LogisticRegression(class_weight = "balanced")
+	classifiers = {
+   		"DummyClassifier": DummyClassifier(strategy='stratified'),
+		"LogisticRegression": LogisticRegression(class_weight = "balanced"),
+		"RandomForestClassifier": RandomForestClassifier(class_weight = "balanced"),
+	}
 
+	#Store results in dict
+	results_df = {}
+
+	#Score the models
 	scoring=["accuracy", "f1"]
-	scores = cross_validate(log_clf, X_train, y_train, scoring = scoring, return_train_score=True, cv = 5)
-	scores_df = pd.DataFrame(scores)
-	print("The mean validation accuracy score is %.3f" %scores["test_accuracy"].mean())
-	print("The mean validation f1 score is %.3f" %scores["test_f1"].mean())
+	for classifier_name, classifier in classifiers.items():
+		scores = cross_validate(classifier, X_train, y_train, scoring = scoring, return_train_score=True, cv=10)
+		results_df[classifier_name] = pd.DataFrame(scores).mean()
+
+	results_df = pd.DataFrame(results_df)
 
 	#Fit the model with training data
+	log_clf = LogisticRegression(class_weight = "balanced")
 	log_clf.fit(X_train, y_train)
+	rf_clf = RandomForestClassifier(class_weight = "balanced")
+	rf_clf.fit(X_train, y_train)
 	
 	#Save the results
-	save_path = out_dir+'/final_model.joblib'
-	os.remove(save_path)
+	save_log = out_dir+'/logistic_model.joblib'
+	save_rf = out_dir+'/randomforest_model.joblib'
+
 
 	try:
-		dump(filename = save_path, value = log_clf)
-		scores_df.to_csv(out_dir+'/cross_validate_scores.csv')
+		dump(filename = save_log, value = log_clf)
+		dump(filename = save_rf, value = rf_clf)
+		results_df.to_csv(out_dir+'/cross_validate_scores.csv')
 	except:
-		os.makedirs(out_dir)
-		dump(filename = save_path, value = log_clf)
-		scores_df.to_csv(out_dir+'/cross_validate_scores.csv')
+		os.remove(save_log)
+		os.remove(save_rf)
+		dump(filename = save_log, value = log_clf)
+		dump(filename = save_rf, value = rf_clf)
+		results_df.to_csv(out_dir+'/cross_validate_scores.csv')
 
 	
 
