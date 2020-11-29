@@ -17,7 +17,7 @@ import os
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import cross_val_score, cross_validate
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 from joblib import dump, load
 
 opt = docopt(__doc__)
@@ -34,27 +34,27 @@ def main(train, out_dir):
 	X_train, y_train = train_df.drop(columns = ["target"]), train_df["target"]
 
 	#Create the logistic regression model
-	rf_clf = RandomForestClassifier(class_weight = "balanced")
+	log_clf = LogisticRegression(class_weight = "balanced")
 
 	scoring=["accuracy", "f1"]
-	scores = cross_validate(rf_clf, X_train, y_train, scoring = scoring, return_train_score=True, cv = 5)
+	scores = cross_validate(log_clf, X_train, y_train, scoring = scoring, return_train_score=True, cv = 5)
 	scores_df = pd.DataFrame(scores)
 	print("The mean validation accuracy score is %.3f" %scores["test_accuracy"].mean())
 	print("The mean validation f1 score is %.3f" %scores["test_f1"].mean())
 
 	#Fit the model with training data
-	rf_clf.fit(X_train, y_train)
+	log_clf.fit(X_train, y_train)
 	
 	#Save the results
 	save_path = out_dir+'/final_model.joblib'
 	os.remove(save_path)
 
 	try:
-		dump(filename = save_path, value = rf_clf)
+		dump(filename = save_path, value = log_clf)
 		scores_df.to_csv(out_dir+'/cross_validate_scores.csv')
 	except:
 		os.makedirs(out_dir)
-		dump(filename = save_path, value = rf_clf)
+		dump(filename = save_path, value = log_clf)
 		scores_df.to_csv(out_dir+'/cross_validate_scores.csv')
 
 	
