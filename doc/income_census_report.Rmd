@@ -6,7 +6,7 @@ always_allow_html: true
 output: 
   html_document:
     toc: true
-bibliography: 
+bibliography:
 ---
 
 ```{r setup, include=FALSE}
@@ -16,59 +16,75 @@ library(kableExtra)
 library(tidyverse)
 ```
 
-```{r load model results}
-
+```{r load model results, include=FALSE}
+cross_validate_scores <- read.csv("../results/cross_validate_scores.csv")
+confusion_matrix <- read.csv("../results/confusion_matrix.csv")%>%
+  column_to_rownames(., var = "X")
+colnames(confusion_matrix) <- c("<50k", ">=50k")
+rownames(confusion_matrix) <- c("<50k", ">=50k")
+classification_report <- read.csv("../results/classification_report.csv")
+classification_report$X[1] = c("<50k")
+classification_report$X[2] = c(">=50k")
 ```
 
 # Summary (To include summary of results after analysis)
 
-Here we attempt to build a classification model using the Logistic Regression algorithm which uses a set of features like age, workclass, education etc to classify the income levels of an indivduals into one of the two categories: >\$50k/year or <=\$50k/year. 
+Here we attempt to build a classification model using the Logistic Regression algorithm which uses a set of features like age, workclass, education etc to classify the income levels of an indivduals into one of the two categories: \>\$50k/year or \<=\$50k/year.
 
 # Introduction
 
-“A large income is the best recipe for happiness I ever heard of” quotes the famous English novelist Jane Austen. While it might not be the only recipe, income dictates the standard of living and economic status of an individual. This data set comprises of numbers from many countries around the world but, about 90% of the data has been collected from the USA. So, we are under the assumption that the median wage required to lead a life in the USA(at the time this data was collected) i.e. $50k per year, was chosen as a threshold for classification. The observations in this data set are classified according to income levels into two categories(>\$50k/year or <=\$50k/year).
+"A large income is the best recipe for happiness I ever heard of" quotes the famous English novelist Jane Austen. While it might not be the only recipe, income dictates the standard of living and economic status of an individual. This data set comprises of numbers from many countries around the world but, about 90% of the data has been collected from the USA. So, we are under the assumption that the median wage required to lead a life in the USA(at the time this data was collected) i.e. \$50k per year, was chosen as a threshold for classification. The observations in this data set are classified according to income levels into two categories(\>\$50k/year or \<=\$50k/year).
 
 Taking into account, the importance and impact of income levels in determining a nation's growth, this study aims to present meaningful insights regarding the same.
 
 # Methods
 
 ## Data
-The data set used in this project is of income census created by Ronny Kohavi and Barry Becker. It was sourced from the UCI Machine Learning Repository [@Dua2019] and can be found [here](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/), specifically [this file](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data). The data contains information such as age, workclass, education etc. The target variable is income and it is divided into two categories (<=50K and >50K). The ultimate aim is to train a classifier to predict the income class.
+
+The data set used in this project is of income census created by Ronny Kohavi and Barry Becker. It was sourced from the UCI Machine Learning Repository [@Dua2019] and can be found [here](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/), specifically [this file](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data). The data contains information such as age, workclass, education etc. The target variable is income and it is divided into two categories (\<=50K and \>50K). The ultimate aim is to train a classifier to predict the income class.
 
 ## Analysis (TO DO)
-The k-nearest neighbors (k-nn) algorithm was used to build a classification model to predict whether a tumour mass was benign or malignant (found in the class column of the data set). All variables included in the original data set, with the exception of the standard error of fractal dimension, smoothness, symmetry and texture were used to fit the model. The hyperparameter $K$ was chosen using 30-fold cross validation with Cohen's Kappa as the classification metric. The R and Python programming languages [@R; @Python] and the following R and Python packages were used to perform the analysis: caret [@caret], docopt [@docopt], knitr [@knitr], tidyverse [@tidyverse], docopt [@docoptpython], os [@Python], Pandas [@mckinney-proc-scipy-2010]. The code used to perform the analysis and create this report can be found here: https://github.com/ttimbers/breast_cancer_predictor.
+
+The k-nearest neighbors (k-nn) algorithm was used to build a classification model to predict whether a tumour mass was benign or malignant (found in the class column of the data set). All variables included in the original data set, with the exception of the standard error of fractal dimension, smoothness, symmetry and texture were used to fit the model. The hyperparameter $K$ was chosen using 30-fold cross validation with Cohen's Kappa as the classification metric. The R and Python programming languages [@R; @Python] and the following R and Python packages were used to perform the analysis: caret [@caret], docopt [@docopt], knitr [@knitr], tidyverse [@tidyverse], docopt [@docoptpython], os [@Python], Pandas [@mckinney-proc-scipy-2010]. The code used to perform the analysis and create this report can be found here: <https://github.com/ttimbers/breast_cancer_predictor>.
 
 # Results & Discussion
 
 To look at the realationship between some of the predictors and the income class, we plotted the graphs of a few predictors according to the class distribution. In the first plot, we aim to visualise the age distribution for different income levels. From the plot, we can infer that, people in the higher age range, were in the higher income class. Experience surely plays a role in deciding the income level.
 
 ```{r predictor-distributions, echo=FALSE, fig.cap="Figure 1. Comparison of income levels w.r.t. age.", out.width = '100%'}
+
 knitr::include_graphics("../results/age.png")
 ```
 
-The relationship between work hours per week and income class is the one that we seek to explore next. Individuals with income >50k have longer average working hours per week than individuals with <50k. But there are some individuals who have income <50k, but have higher work hours.
+The relationship between work hours per week and income class is the one that we seek to explore next. Individuals with income \>50k have longer average working hours per week than individuals with \<50k. But there are some individuals who have income \<50k, but have higher work hours.
 
 ```{r predictor-distributions, echo=FALSE, fig.cap="Figure 1. Comparison of income levels w.r.t. average work hours per week.", out.width = '100%'}
 knitr::include_graphics("../results/work-hours.png")
 ```
 
-We chose to use a simple classification model using the Logistic regression algorithm. To find the model that best predicted whether an individual earns >50k or <=50k, we performed 30-fold cross validation using Cohen's Kappa as our metric of model prediction performance to select K (number of nearest neighbours). We observed that the optimal K was `r model$bestTune$k`.
+We chose to build a simple classification model. To find the model that best predicted whether an individual earns \>50k or \<=50k, we performed 10-fold cross validation using the Logistic regression algorithm and Random Forest Classification. We observed that the Random Forest Classification generates a higher training accuracy and f1 score, however, its advantage in cross-validation scores is not obvious. Meanwhile, the gap between train and cross-validation score is very large in Random Forest Classification, which indicates the model is overfitted. At this point, we decide to use Logistic Regression algorithm to build the prediction model.
 
-```{r choosing-k, echo=FALSE, fig.cap="Figure 2. Results from 30-fold cross validation to choose K. Cohen's Kappa was used as the classification metric as K was varied.", out.width = '60%'}
-knitr::include_graphics("../results/kappa_vs_k.png")
+```{r present cross validation score, echo=FALSE}
+kable(cross_validate_scores, caption = "Table 1. Cross validate scores of model performance on train data.") %>%
+  kable_styling(full_width = FALSE)
 ```
 
-Our prediction model performed quite well on test data, with a final Cohen's Kappa score of `r round(model_quality$overall[2], 1)` and an overall accuracy calculated to be `r round(model_quality$overall[1], 2)`. Other indicators that our model performed well come from the confusion matrix, where it only made `r model_quality$table[2, 1] + model_quality$table[1, 2]` mistakes. However all `r model_quality$table[2, 1] + model_quality$table[1, 2]` mistakes were predicting a malignant tumour as benign, given the implications this has for patients health, this model is not good enough to yet implement in the clinic.
-
+Our prediction model performed quite well on test data, the confusion matrix below indicates it only made `r confusion_matrix[2, 1] + confusion_matrix[1, 2]` mistakes. However, most of the mistake are from the "\>=50K" group.
 
 ```{r confusion-matrix, echo=FALSE}
-kable(model_quality$table, caption = "Table 1. Confusion matrix of model performance on test data.") %>%
+kable(confusion_matrix, caption = "Table 2. Confusion matrix of model performance on test data.") %>%
   kable_styling(full_width = FALSE) %>%
   add_header_above(c(" ", "Reference" = 2)) %>% 
   pack_rows("Predicted", 1, 2)
 ```
 
-To further improve this model in future with hopes of arriving one that could be used in the clinic, there are several things we can suggest. First, we could look closely at the 4 misclassified observations and compare them to several observations that were classified correctly (from both classes). The goal of this would be to see which feature(s) may be driving the misclassification and explore whether any feature engineering could be used to help the model better predict on observations that it currently is making mistakes on. Additionally, we would try seeing whether we can get improved predictions using other classifiers. One classifier we might try is random forest forest because it automatically allows for feature interaction, where k-nn does not. Finally, we also might improve the usability of the model in the clinic if we output and report the probability estimates for predictions. If we cannot prevent misclassifications through the approaches suggested above, at least reporting a probability estimates for predictions would allow the clinician to know how confident the model was in its prediction. Thus the clinician may then have the ability to perform additional diagnostic assays if the probability estimates for prediction of a given tumour class is not very high.
+This problem is also reflected by the classification report, that the f1.score of "\>=50k" group is much lower than "\<50k" group. This model is not good enough to yet predict the income status of rich people.
+
+```{r}
+kable(classification_report, caption = "Table 3. Classification report of model performance on test data.")%>%
+  kable_styling(full_width = FALSE)
+```
+
+To further improve this model in future, there are several things we can suggest. First, we could consider to add some hyperparameters to control the machine learning process to get a better model. Second, we could look through the model to see if there are any feature(s) driving to a misclassification and explore whether any feature engineering could be used to help the model better predict on observations that it currently is making mistakes on.
 
 # References
-
