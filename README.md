@@ -41,19 +41,32 @@ Rscript -e "rmarkdown::render('doc/income_census_report.Rmd', output_format = 'g
 ## Dependencies
 
 Python 3.7.3 and Python packages:
+
 docopt==0.6.2
+
 requests==2.24.0
+
 pandas==0.24.2
+
 numpy==1.19.1
+
 scikit-learn==0.23.2
+
 joblib==0.17.0
 
+
 R version 4.0.2 and R packages:
+
 knitr==1.29
+
 tidyverse==1.3.0
+
 kableExtra==1.3.1
+
 ggplot2==3.3.2
+
 reshape2==1.4.4
+
 cowplot==1.1.0
 
 ## Citation
