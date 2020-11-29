@@ -6,3 +6,4 @@ src/__pycache__/
 data/raw/*.csv
 data/processed/*.csv
 **.joblib
+.Rproj.user
