@@ -1,4 +1,4 @@
-# author: Yanhua Chen
+# author: Fei Chang, Yanhua Chen
 # date: 2020-11-28
 
 """Assesses model's accuracy on a test data set.
