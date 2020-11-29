@@ -611,7 +611,7 @@ body {
 <h2 id="data">Data</h2>
 <p>The data set used in this project is of income census created by Ronny Kohavi and Barry Becker. It was sourced from the UCI Machine Learning Repository and can be found <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/adult/">here</a>, specifically <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data">this file</a>. The data contains information such as age, workclass, education etc. The target variable is income and it is divided into two categories (&lt;=50K and &gt;50K). The ultimate aim is to train a classifier to predict the income class.</p>
 <h2 id="analysis">Analysis</h2>
-<p>The logistic regression algorithm was used to build a classification model to predict whether an individual earns &gt;$50k/year or &lt;=$50k/year. All the variables in original data set except for education.num column was used. The education.num column is just a numerical representation of the education level of an individual. We chose to do one-hot encoding on the education column and use that instead. f1 score was chosen as the desired metric and a 10 fold cross-validation was performed on the train set. The R and Python programming languages (R Core Team 2019; <span class="citeproc-not-found" data-reference-id="Python"><strong>???</strong></span>) and the following R and Python packages were used to perform the analysis: docopt (<span class="citeproc-not-found" data-reference-id="docopt"><strong>???</strong></span>), knitr (Xie 2014), tidyverse (Wickham et al. 2019), docopt (<span class="citeproc-not-found" data-reference-id="docoptpython"><strong>???</strong></span>), os (<span class="citeproc-not-found" data-reference-id="Python"><strong>???</strong></span>), Pandas (McKinney 2010). The code used to perform the analysis and create this report can be found here: <a href="https://github.com/UBC-MDS/DSCI_522_Group_18" class="uri"><a href="https://github.com/UBC-MDS/DSCI_522_Group_18">https://github.com/UBC-MDS/DSCI_522_Group_18</a></a>.</p>
+<p>The logistic regression algorithm was used to build a classification model to predict whether an individual earns &gt;$50k/year or &lt;=$50k/year. All the variables in original data set except for education.num column was used. The education.num column is just a numerical representation of the education level of an individual. We chose to do one-hot encoding on the education column and use that instead. f1 score was chosen as the desired metric and a 10 fold cross-validation was performed on the train set. The R and Python programming languages (R Core Team 2019; Van Rossum and Drake 2009) and the following R and Python packages were used to perform the analysis: docopt (de Jonge 2018), knitr (Xie 2014), tidyverse (Wickham et al. 2019), docopt (Keleshev 2014), os (Van Rossum and Drake 2009), Pandas (McKinney 2010). The code used to perform the analysis and create this report can be found here: <a href="https://github.com/UBC-MDS/DSCI_522_Group_18" class="uri"><a href="https://github.com/UBC-MDS/DSCI_522_Group_18">https://github.com/UBC-MDS/DSCI_522_Group_18</a></a>.</p>
 <h1 id="results--discussion">Results &amp; Discussion</h1>
 <p>To look at the realationship between some of the predictors and the income class, we plotted the graphs of a few predictors according to the class distribution. In the first plot, we aim to visualise the age distribution for different income levels. From the plot, we can infer that, people in the higher age range, were in the higher income class. Experience surely plays a role in deciding the income level.</p>
 <div class="figure">
@@ -920,6 +920,16 @@ weighted avg
 <h1 id="references">References</h1>
 <div id="refs" class="references hanging-indent">
 
+<div id="ref-docopt">
+
+<p>de Jonge, Edwin. 2018. <em>Docopt: Command-Line Interface Specification Language</em>. <a href="https://CRAN.R-project.org/package=docopt">https://CRAN.R-project.org/package=docopt</a>.</p>
+</div>
+
+<div id="ref-docoptpython">
+
+<p>Keleshev, Vladimir. 2014. <em>Docopt: Command-Line Interface Description Language</em>. <a href="https://github.com/docopt/docopt">https://github.com/docopt/docopt</a>.</p>
+</div>
+
 <div id="ref-mckinney-proc-scipy-2010">
 
 <p>McKinney. 2010. “Data Structures for Statistical Computing in Python.” In <em>Proceedings of the 9th Python in Science Conference</em>, edited by Stéfan van der Walt and Jarrod Millman, 56–61. <a href="https://doi.org/%2010.25080/Majora-92bf1922-00a%20"><a href="https://doi.org/">https://doi.org/</a> 10.25080/Majora-92bf1922-00a</a>.</p>
@@ -928,6 +938,11 @@ weighted avg
 <div id="ref-R">
 
 <p>R Core Team. 2019. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.</p>
+</div>
+
+<div id="ref-Python">
+
+<p>Van Rossum, Guido, and Fred L. Drake. 2009. <em>Python 3 Reference Manual</em>. Scotts Valley, CA: CreateSpace.</p>
 </div>
 
 <div id="ref-tidyverse">

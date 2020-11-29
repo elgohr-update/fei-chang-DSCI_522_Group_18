@@ -62,16 +62,12 @@ numerical representation of the education level of an individual. We
 chose to do one-hot encoding on the education column and use that
 instead. f1 score was chosen as the desired metric and a 10 fold
 cross-validation was performed on the train set. The R and Python
-programming languages (R Core Team 2019; <span
-class="citeproc-not-found" data-reference-id="Python">**???**</span>)
-and the following R and Python packages were used to perform the
-analysis: docopt (<span class="citeproc-not-found"
-data-reference-id="docopt">**???**</span>), knitr (Xie 2014), tidyverse
-(Wickham et al. 2019), docopt (<span class="citeproc-not-found"
-data-reference-id="docoptpython">**???**</span>), os (<span
-class="citeproc-not-found" data-reference-id="Python">**???**</span>),
-Pandas (McKinney 2010). The code used to perform the analysis and create
-this report can be found here:
+programming languages (R Core Team 2019; Van Rossum and Drake 2009) and
+the following R and Python packages were used to perform the analysis:
+docopt (de Jonge 2018), knitr (Xie 2014), tidyverse (Wickham et al.
+2019), docopt (Keleshev 2014), os (Van Rossum and Drake 2009), Pandas
+(McKinney 2010). The code used to perform the analysis and create this
+report can be found here:
 <a href="https://github.com/UBC-MDS/DSCI_522_Group_18" class="uri">https://github.com/UBC-MDS/DSCI_522_Group_18</a>.
 
 Results & Discussion
@@ -422,6 +418,20 @@ References
 
 <div id="refs" class="references hanging-indent">
 
+<div id="ref-docopt">
+
+de Jonge, Edwin. 2018. *Docopt: Command-Line Interface Specification
+Language*. <https://CRAN.R-project.org/package=docopt>.
+
+</div>
+
+<div id="ref-docoptpython">
+
+Keleshev, Vladimir. 2014. *Docopt: Command-Line Interface Description
+Language*. <https://github.com/docopt/docopt>.
+
+</div>
+
 <div id="ref-mckinney-proc-scipy-2010">
 
 McKinney. 2010. “Data Structures for Statistical Computing in Python.”
@@ -436,6 +446,13 @@ Stéfan van der Walt and Jarrod Millman, 56–61.
 R Core Team. 2019. *R: A Language and Environment for Statistical
 Computing*. Vienna, Austria: R Foundation for Statistical Computing.
 <https://www.R-project.org/>.
+
+</div>
+
+<div id="ref-Python">
+
+Van Rossum, Guido, and Fred L. Drake. 2009. *Python 3 Reference Manual*.
+Scotts Valley, CA: CreateSpace.
 
 </div>
 
