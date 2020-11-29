@@ -3,7 +3,7 @@ Co-authors: Aishwarya Gopal, Fei Chang, Yanhua Chen
 
 ## About
 
-Here we attempt to build a classification model using the Logistic Regression algorithm which uses a set of features like age, workclass, education etc to classify the income levels of an indivduals into one of the two categories: \>\$50k/year or \<=\$50k/year (we use "1" to represent \>\$50k/year, and "0" to represent \<=\$50k/year).
+Here we attempt to build a classification model using the Logistic Regression algorithm which uses a set of features like age, workclass, education etc to classify the income levels of an indivduals into one of the two categories: >$50k/year or <=$50k/year. (we use "1" to represent \>\$50k/year, and "0" to represent \<=\$50k/year). Our final Logistic Regression model performed well on the test data set. The target class >=50k was encoded as 1 and the other class as 0. We obtained an f1 score of 1 and an overall accuracy calculated to be 1. It correctly predicted the income class of 7963 individuals. However it incorrectly predicted 1806 examples.
 
 The Census Income Dataset is created by Ronny Kohavi and Barry Becker, and sourced from the UCI Machine Learning Repository [http://archive.ics.uci.edu/ml]. This is a classification dataset and we will complete a classification task to predict whether or not a person can earn more than $50k/yr for this project. We will use the binary attribute "income" as our target, which includes two values: ">50K" and "<=50K". There are 14 explanatory variables in the dataset, 6 are numeric features and 8 are categorical features. Each row contains one observation with the 14 explanatory variables(personal information) and the relative income status. There are 48842 observations in the dataset.
 
