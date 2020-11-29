@@ -9,7 +9,7 @@ The Census Income Dataset is created by Ronny Kohavi and Barry Becker, and sourc
 
 ## Report
 
-The final report can be found [here](##add link)
+The final report can be found [here](https://github.com/UBC-MDS/DSCI_522_Group_18/doc/income_census_report.html)
 
 ## Usage
 
