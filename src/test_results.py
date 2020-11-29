@@ -36,7 +36,7 @@ def main(test, out_dir):
         X_test, y_test = test_df.drop(columns = ["target"]), test_df["target"]
 
 	#Load model and predict
-        model = load(filename='results/final_model.joblib') 
+        model = load(filename='results/logistic_model.joblib') 
         pred = model.predict(X_test)
 
         #Create confusion matrix
