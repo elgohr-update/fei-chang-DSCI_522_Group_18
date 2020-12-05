@@ -26,13 +26,13 @@ opt = docopt(__doc__)
 
 def main(test, out_dir):
         try: 
-	        test_df = pd.read_csv(test,index_col=0)
+	        test_df = pd.read_csv(test)
         except FileNotFoundError:
                 print("The input test data does not exist.\nPlease Check the raw data requested has been created.")
                 return
 
 	#Load and wrangle test data
-        test_df = pd.read_csv(test,index_col=0)
+        test_df = pd.read_csv(test)
         X_test, y_test = test_df.drop(columns = ["target"]), test_df["target"]
 
 	#Load model and predict

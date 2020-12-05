@@ -17,9 +17,11 @@ set.seed(2020)
 
 # Summary of the data set
 
+
 ```{r load data}
-census_data <- read.csv("../data/raw/adult.csv", header = FALSE, col.names = c("age", "workclass", "fnlwgt", "education", "education-num", "marital-status", "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country", "income"))
-census_data
+census_data <- read.csv("../data/raw/adult.csv", header = FALSE, col.names = c("age", "workclass", "fnlwgt", "education", "education-num", "marital-status", "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country", "income")) 
+
+census_data %>% head(10)
 ```
 
 The data set used in this project is of income census created by Ronny Kohavi and Barry Becker. It was sourced from the UCI Machine Learning Repository [@Dua2019] and can be found [here](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/), specifically [this file](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data). The data contains information such as age, workclass, education etc. The target variable is income and it is divided into two categories (<=50K and >50K). The ultimate aim is to train a classifier to predict the income class. There are `r nrow(census_data)` observations in the data set, and `r ncol(census_data) - 1` features.
@@ -64,25 +66,16 @@ A regression coefficient is interpreted as "the change in the output for every 1
 Therefore, it is important to check the dataset for the presence of collinearity.
 ```{r echo=FALSE}
 
-numeric_data <- census_data[, numeric_columns]
-cormat <- round(cor(numeric_data),2)
-melted_cormat <- melt(cormat)
-ggplot(data = melted_cormat, aes(x=Var1, y=Var2, fill=value)) + 
-  geom_tile()
-
+knitr::include_graphics("../results/correlation_heatmap.png")
 ```
-From the above correlation heatmap, we can observe that none of the numeric variables are highly correlated.
+From the above correlation heatmap, we can observe that none of the numeric variables seem to be highly correlated.
 
 
 ## Exploring the relationship between age and income levels
 ```{r}
 
+knitr::include_graphics("../results/age.png")
 
-  ggplot(census_data, aes(x = income, y = age)) +
-    geom_boxplot() +
-    ggtitle("Age distribution for different income levels") +
-    xlab("Income Levels") +
-    ylab("Age")
 ```
 From the above plot, it can be inferred that, in general as age increases, i.e. experience level increases, there tends to be higher income levels.
 
@@ -93,11 +86,8 @@ For the purpose of exploring the relationship between working hours per week and
 
 ```{r}
 
-ggplot(census_data, aes(x = income, y = `hours.per.week`)) +
-    geom_boxplot() +
-    ggtitle("Work Hours distribution for different income levels") +
-    xlab("Income Levels") +
-    ylab("Work Hours per week")
+knitr::include_graphics("../results/work-hours.png")
+
 
 ```
 Individuals with income >50k have longer average working hours per week than individuals with <50k. But there are some individuals who have income <50k, but have higher work hours.
