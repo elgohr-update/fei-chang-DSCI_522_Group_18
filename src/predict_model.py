@@ -26,12 +26,12 @@ opt = docopt(__doc__)
 
 def main(train, out_dir):
 	try: 
-		train_df = pd.read_csv(train,index_col=0)
+		train_df = pd.read_csv(train)
 	except FileNotFoundError:
 		print("The input train data does not exist.\nPlease Check the raw data requested has been created.")
 		return
 	
-	train_df = pd.read_csv(train,index_col=0)
+	train_df = pd.read_csv(train)
 	#Create X and y dataframe
 	X_train, y_train = train_df.drop(columns = ["target"]), train_df["target"]
 
@@ -48,7 +48,7 @@ def main(train, out_dir):
 	#Score the models
 	scoring=["accuracy", "f1"]
 	for classifier_name, classifier in classifiers.items():
-		scores = cross_validate(classifier, X_train, y_train, scoring = scoring, return_train_score=True, cv=10)
+		scores = cross_validate(classifier, X_train, y_train, scoring = scoring, return_train_score=True, cv=10, n_jobs = -1)
 		results_df[classifier_name] = pd.DataFrame(scores).mean()
 
 	results_df = pd.DataFrame(results_df)

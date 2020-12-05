@@ -16,6 +16,11 @@ library(kableExtra)
 library(tidyverse)
 ```
 
+```{r load eda figures, include=FALSE}
+age <- "../results/age.png"
+work_hours <- "../results/work-hours.png"
+```
+
 ```{r load model results, include=FALSE}
 cross_validate_scores <- read.csv("../results/cross_validate_scores.csv")
 confusion_matrix <- read.csv("../results/confusion_matrix.csv")%>%
@@ -53,13 +58,13 @@ To look at the realationship between some of the predictors and the income class
 
 ```{r age v/s income distribution, echo=FALSE, fig.cap="Figure 1. Comparison of income levels w.r.t. age.", out.width = '100%'}
 
-knitr::include_graphics("../results/age.png")
+knitr::include_graphics(age)
 ```
 
 The relationship between work hours per week and income class is the one that we seek to explore next. Individuals with income \>50k have longer average working hours per week than individuals with \<50k. But there are some individuals who have income \<50k, but have higher work hours.
 
 ```{r work-hours v/s income distribution, echo=FALSE, fig.cap="Figure 1. Comparison of income levels w.r.t. average work hours per week.", out.width = '100%'}
-knitr::include_graphics("../results/work-hours.png")
+knitr::include_graphics(work_hours)
 ```
 
 We chose to build a simple classification model. To find the model that best predicted whether an individual earns \>50k or \<=50k, we performed 10-fold cross validation using the Logistic regression algorithm and Random Forest Classification. We observed that the Random Forest Classification generates a higher training accuracy and f1 score, however, its advantage in cross-validation scores is not obvious. Meanwhile, the gap between train and cross-validation score is very large in Random Forest Classification, which indicates the model is overfitted. At this point, we decide to use Logistic Regression algorithm to build the prediction model.
