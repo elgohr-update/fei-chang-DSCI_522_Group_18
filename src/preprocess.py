@@ -131,12 +131,12 @@ def main(input_file, out_dir):
   training_file = out_dir+"/training.csv"
   test_file = out_dir+"/test.csv"
   try:
-    processed_train_df.to_csv(training_file)
-    processed_test_df.to_csv(test_file)
+    processed_train_df.to_csv(training_file, index = False)
+    processed_test_df.to_csv(test_file, index = False)
   except:
     os.makedirs(out_dir)
-    processed_train_df.to_csv(training_file)
-    processed_test_df.to_csv(test_file)
+    processed_train_df.to_csv(training_file, index = False)
+    processed_test_df.to_csv(test_file, index = False)
 
 
 if __name__ == "__main__":
