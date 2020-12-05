@@ -63,7 +63,7 @@ From the above table, we can notice that class imbalance is significant and cert
 
 A regression coefficient is interpreted as "the change in the output for every 1 unit change in an input variable, while holding all other input variables constant". However, when two numeric input variables are highly correlated, it is almost impossible to change the value of one input variable without changing the other. Hence, the coefficients become very sensitive to small changes in the model and the coefficient estimates tend to swing wildly.
 
-Therefore, it is important to check the dataset for the presence of collinearity.
+Therefore, it is important to check the data set for the presence of collinearity.
 ```{r echo=FALSE}
 
 knitr::include_graphics("../results/correlation_heatmap.png")
