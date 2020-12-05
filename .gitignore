@@ -3,4 +3,7 @@ src/__pycache__/
 **.Rproj
 **.Rproj.user/
 **.Rhistory
-**.csv
+data/raw/*.csv
+data/processed/*.csv
+**.joblib
+.Rproj.user

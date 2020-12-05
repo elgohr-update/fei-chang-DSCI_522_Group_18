@@ -1,4 +1,4 @@
-# author: Group 18
+# author: Yanhua Chen
 # date: 2020-11-26
 
 """Downloads raw data from the web to a local filepath as a csv file format.
