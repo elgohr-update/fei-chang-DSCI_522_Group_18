@@ -38,7 +38,7 @@ def main(train, out_dir):
 	#Create the logistic regression model
 	classifiers = {
    		"DummyClassifier": DummyClassifier(strategy='stratified'),
-		"LogisticRegression": LogisticRegression(class_weight = "balanced"),
+		"LogisticRegression": LogisticRegression(class_weight = "balanced", max_iter = 2000),
 		"RandomForestClassifier": RandomForestClassifier(class_weight = "balanced"),
 	}
 
@@ -54,7 +54,7 @@ def main(train, out_dir):
 	results_df = pd.DataFrame(results_df)
 
 	#Fit the model with training data
-	log_clf = LogisticRegression(class_weight = "balanced")
+	log_clf = LogisticRegression(class_weight = "balanced", max_iter = 2000)
 	log_clf.fit(X_train, y_train)
 	rf_clf = RandomForestClassifier(class_weight = "balanced")
 	rf_clf.fit(X_train, y_train)

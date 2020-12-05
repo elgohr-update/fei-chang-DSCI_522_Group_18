@@ -8,13 +8,13 @@ Summary
 
 Here we attempt to build a classification model using the Logistic
 Regression algorithm which uses a set of features like age, workclass,
-education etc to classify the income levels of an indivduals into one of
-the two categories: &gt;$50k/year or &lt;=$50k/year. Our final Logistic
-Regression model performed well on the test data set. The target class
-&gt;=50k was encoded as 1 and the other class as 0. We obtained an f1
-score of 1 and an overall accuracy calculated to be 1. It correctly
-predicted the income class of 7963 individuals. However it incorrectly
-predicted 1806 examples.
+education etc to classify the income levels of an indivdual into one of
+the two categories: &gt;$50k/year or &lt;=$50k/year. The target class
+&gt;=50k was encoded as 1 and the other class as 0. Our final Logistic
+Regression model performed well on the test data set. We obtained an f1
+score of 0.69 and an overall accuracy calculated to be 0.81. It
+correctly predicted the income class of 7932 individuals. However it
+incorrectly predicted 1837 examples.
 
 Introduction
 ============
@@ -22,13 +22,15 @@ Introduction
 “A large income is the best recipe for happiness I ever heard of” quotes
 the famous English novelist Jane Austen. While it might not be the only
 recipe, income dictates the standard of living and economic status of an
-individual. This data set comprises of numbers from many countries
-around the world but, about 90% of the data has been collected from the
-USA. So, we are under the assumption that the median wage required to
-lead a life in the USA(at the time this data was collected) i.e. $50k
-per year, was chosen as a threshold for classification. The observations
-in this data set are classified according to income levels into two
-categories(&gt;$50k/year or &lt;=$50k/year).
+individual. So, we decided to study the income distribution of people
+with different education levels, years of experience etc. The
+observations in this data set are classified according to income levels,
+into two categories(&gt;$50k/year or &lt;=$50k/year). This data set
+comprises of numbers from many countries around the world but, about 90%
+of the data has been collected from the USA. So, we are under the
+assumption that, the median wage required to lead a life in the USA (at
+the time this data was collected) i.e. $50k per year, was chosen as a
+threshold for classification.
 
 Taking into account, the importance and impact of income levels in
 determining a nation’s growth, this study aims to present meaningful
@@ -142,13 +144,13 @@ RandomForestClassifier
 fit\_time
 </td>
 <td style="text-align:right;">
-0.0105004
+0.0412552
 </td>
 <td style="text-align:right;">
-0.3842015
+3.5960651
 </td>
 <td style="text-align:right;">
-3.8234184
+9.0511725
 </td>
 </tr>
 <tr>
@@ -156,13 +158,13 @@ fit\_time
 score\_time
 </td>
 <td style="text-align:right;">
-0.0021047
+0.0089719
 </td>
 <td style="text-align:right;">
-0.0052987
+0.0071255
 </td>
 <td style="text-align:right;">
-0.0778021
+0.1983538
 </td>
 </tr>
 <tr>
@@ -170,13 +172,13 @@ score\_time
 test\_accuracy
 </td>
 <td style="text-align:right;">
-0.6335558
+0.6356625
 </td>
 <td style="text-align:right;">
-0.8096265
+0.8099776
 </td>
 <td style="text-align:right;">
-0.8532380
+0.8564407
 </td>
 </tr>
 <tr>
@@ -184,13 +186,13 @@ test\_accuracy
 train\_accuracy
 </td>
 <td style="text-align:right;">
-0.6347744
+0.6353399
 </td>
 <td style="text-align:right;">
-0.8111179
+0.8109034
 </td>
 <td style="text-align:right;">
-0.9999269
+0.9999415
 </td>
 </tr>
 <tr>
@@ -198,13 +200,13 @@ train\_accuracy
 test\_f1
 </td>
 <td style="text-align:right;">
-0.2353709
+0.2411761
 </td>
 <td style="text-align:right;">
-0.6811392
+0.6819067
 </td>
 <td style="text-align:right;">
-0.6649857
+0.6703239
 </td>
 </tr>
 <tr>
@@ -212,20 +214,20 @@ test\_f1
 train\_f1
 </td>
 <td style="text-align:right;">
-0.2394984
+0.2408215
 </td>
 <td style="text-align:right;">
-0.6840788
+0.6838377
 </td>
 <td style="text-align:right;">
-0.9998478
+0.9998782
 </td>
 </tr>
 </tbody>
 </table>
 
 Our prediction model performed quite well on test data, the confusion
-matrix below indicates it only made 1806 mistakes. However, most of the
+matrix below indicates it only made 1837 mistakes. However, most of the
 mistake are from the “&gt;=50K” group.
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -268,10 +270,10 @@ Reference
 &lt;50k
 </td>
 <td style="text-align:right;">
-5965
+5929
 </td>
 <td style="text-align:right;">
-1437
+1473
 </td>
 </tr>
 <tr>
@@ -279,10 +281,10 @@ Reference
 &gt;=50k
 </td>
 <td style="text-align:right;">
-369
+364
 </td>
 <td style="text-align:right;">
-1998
+2003
 </td>
 </tr>
 </tbody>
@@ -322,13 +324,13 @@ support
 &lt;50k
 </td>
 <td style="text-align:right;">
-0.9417430
+0.9421580
 </td>
 <td style="text-align:right;">
-0.8058633
+0.8009997
 </td>
 <td style="text-align:right;">
-0.8685207
+0.8658635
 </td>
 <td style="text-align:right;">
 7402.0000000
@@ -339,13 +341,13 @@ support
 &gt;=50k
 </td>
 <td style="text-align:right;">
-0.5816594
+0.5762371
 </td>
 <td style="text-align:right;">
-0.8441065
+0.8462188
 </td>
 <td style="text-align:right;">
-0.6887280
+0.6856067
 </td>
 <td style="text-align:right;">
 2367.0000000
@@ -356,16 +358,16 @@ support
 accuracy
 </td>
 <td style="text-align:right;">
-0.8151295
+0.8119562
 </td>
 <td style="text-align:right;">
-0.8151295
+0.8119562
 </td>
 <td style="text-align:right;">
-0.8151295
+0.8119562
 </td>
 <td style="text-align:right;">
-0.8151295
+0.8119562
 </td>
 </tr>
 <tr>
@@ -373,13 +375,13 @@ accuracy
 macro avg
 </td>
 <td style="text-align:right;">
-0.7617012
+0.7591975
 </td>
 <td style="text-align:right;">
-0.8249849
+0.8236093
 </td>
 <td style="text-align:right;">
-0.7786244
+0.7757351
 </td>
 <td style="text-align:right;">
 9769.0000000
@@ -390,13 +392,13 @@ macro avg
 weighted avg
 </td>
 <td style="text-align:right;">
-0.8544958
+0.8534964
 </td>
 <td style="text-align:right;">
-0.8151295
+0.8119562
 </td>
 <td style="text-align:right;">
-0.8249574
+0.8221878
 </td>
 <td style="text-align:right;">
 9769.0000000
