@@ -16,58 +16,34 @@ The final report can be found [here](http://htmlpreview.github.io/?https://raw.g
 To replicate the anlaysis, please clone this Github repository, install the dependencies listed below, and run the following commands in terminal from the root directory of the project
 
 ```
-# download raw data
-python src/download_data.py --url=https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data --out_file=data/raw/adult.csv
-
-# run eda report
-Rscript -e "rmarkdown::render('src/eda.Rmd')"
-
-# pre-process data 
-Python src/preprocess.py --input=data/raw/adult.csv --out_dir=data/processed 
-
-# create exploratory data analysis figure and write to file 
-Rscript src/eda_income_census.R --train=data/processed/training.csv --out_dir=results
-
-# tune model
-Python src/predict_model.py --train=data/processed/training.csv --out_dir=results
-
-# test model
-Python src/test_results.py --test=data/processed/test.csv --out_dir=results
-
-# render final report
-Rscript -e "rmarkdown::render('doc/income_census_report.Rmd', output_format = 'github_document')"
+make all
 ```
+
+To reset the repo to a clean state, with no intermediate or results files, run the following command at the command line/terminal from the root directory of this project:
+```
+make clean
+```
+
 
 ## Dependencies
 
-Python 3.7.3 and Python packages:
-
-docopt==0.6.2
-
-requests==2.24.0
-
-pandas==0.24.2
-
-numpy==1.19.1
-
-scikit-learn==0.23.2
-
-joblib==0.17.0
+* Python 3.7.3 and Python packages:
+    docopt==0.6.2
+    requests==2.24.0
+    pandas==0.24.2
+    numpy==1.19.1
+    scikit-learn==0.23.2
+    joblib==0.17.0
 
 
-R version 4.0.2 and R packages:
-
-knitr==1.29
-
-tidyverse==1.3.0
-
-kableExtra==1.3.1
-
-ggplot2==3.3.2
-
-reshape2==1.4.4
-
-cowplot==1.1.0
+* R version 4.0.2 and R packages:
+    knitr==1.29
+    tidyverse==1.3.0
+    kableExtra==1.3.1
+    ggplot2==3.3.2
+    reshape2==1.4.4
+    cowplot==1.1.0
+* GNU make 4.2.1
 
 ## Citation
 Ron Kohavi, "Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid", Proceedings of the Second International Conference on Knowledge Discovery and Data Mining, 1996
