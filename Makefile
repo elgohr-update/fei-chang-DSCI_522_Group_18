@@ -2,7 +2,7 @@
 # Fei Chang, Dec 2020
 
 
-all : doc/income_census_report.Rmd
+all : doc/income_census_report.md
 
 # download raw data
 data/raw/adult.csv : src/download_data.py 
@@ -29,7 +29,7 @@ results/confusion_matrix.csv results/classification_report.csv : data/processed/
 	python src/test_results.py --test=data/processed/test.csv --out_dir=results
 
 # render final report
-doc/income_census_report.Rmd : results/cross_validate_scores.csv results/confusion_matrix.csv results/classification_report.csv results/age.png results/work-hours.png
+doc/income_census_report.md : doc/income_census_refs.bib results/cross_validate_scores.csv results/confusion_matrix.csv results/classification_report.csv results/age.png results/work-hours.png
 	Rscript -e "rmarkdown::render('doc/income_census_report.Rmd', output_format = 'github_document')"
 
 

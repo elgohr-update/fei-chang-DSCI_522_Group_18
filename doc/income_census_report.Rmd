@@ -4,7 +4,7 @@ author: "Aishwarya Gopal, Fei Chang, Yanhua Chen"
 date: "2020/11/29"
 always_allow_html: true
 output:    
-   html_document:
+   github_document:
      toc: true
 bibliography: income_census_refs.bib
 ---
@@ -34,7 +34,7 @@ classification_report$X[2] = c(">=50k")
 
 # Summary
 
-Here we attempt to build a classification model using the Logistic Regression algorithm which uses a set of features like age, workclass, education etc to classify the income levels of an indivdual into one of the two categories: \>\$50k/year or \<=\$50k/year. The target class >=50k was encoded as 1 and the other class as 0. Our final Logistic Regression model performed well on the test data set. We obtained an f1 score of `r round(classification_report$f1.score[2],2)` and an overall accuracy calculated to be `r round(classification_report$precision[3],2)`. It correctly predicted  the income class of `r confusion_matrix[1, 1] + confusion_matrix[2, 2]` individuals. However it incorrectly predicted  `r confusion_matrix[2, 1] + confusion_matrix[1, 2]` examples. 
+Here we attempt to build a classification model using the Logistic Regression algorithm which uses a set of features like age, workclass, education etc to classify the income levels of an indivdual into one of the two categories: \>\$50k/year or \<=\$50k/year. The target class \>=50k was encoded as 1 and the other class as 0. Our final Logistic Regression model performed well on the test data set. We obtained an f1 score of `r round(classification_report$f1.score[2],2)` and an overall accuracy calculated to be `r round(classification_report$precision[3],2)`. It correctly predicted the income class of `r confusion_matrix[1, 1] + confusion_matrix[2, 2]` individuals. However it incorrectly predicted `r confusion_matrix[2, 1] + confusion_matrix[1, 2]` examples.
 
 # Introduction
 
