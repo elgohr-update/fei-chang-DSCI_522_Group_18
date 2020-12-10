@@ -74,7 +74,6 @@ def main(input_file, out_dir):
   ]
   categorical_features = [
       "workclass",
-      "education",
       "marital_status",
       "occupation",
       "relationship",
@@ -94,9 +93,9 @@ def main(input_file, out_dir):
   cat_test = imp.transform(test_df_nan[categorical_features])
 
   # Scaling transformation for numeric features
-  scaler = StandardScaler()
-  scaled_train = scaler.fit_transform(num_train)
-  scaled_test = scaler.fit_transform(num_test)
+  scaler = StandardScaler().fit(num_train)
+  scaled_train = scaler.transform(num_train)
+  scaled_test = scaler.transform(num_test)
 
   # One-hot transformation for categorical features
   ohe = OneHotEncoder(handle_unknown="ignore", sparse=False)
