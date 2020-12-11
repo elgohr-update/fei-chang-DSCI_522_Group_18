@@ -44,27 +44,24 @@ main <- function(train, out_dir) {
          plot = plot0,
          width = 5,
          height = 5)
+    
+    numeric_features <- c( "age",
+                            "fnlwgt",
+                            "education_num",
+                            "capital_gain",
+                            "capital_loss",
+                            "hours_per_week")
   
-  # visualize age distribution for income levels
-  plot1 <- ggplot(x_train, aes(x = target, y = age)) +
-    geom_boxplot() +
-    ggtitle("Age distribution for different income levels") +
-    xlab("Income Levels") +
-    ylab("Age")
+  plot1 <- x_train %>%
+    select(numeric_features, target) %>%
+    pivot_longer(!c(target)) %>%
+    ggplot() +
+    aes(y = value, x = target) +
+    geom_boxplot(fill = 'blue', alpha = 0.3) +
+    facet_wrap(~name, scales = "free")
   
-  ggsave(file = paste0(out_dir, "/age.png"),
+  ggsave(file = paste0(out_dir, "/box_plots_numeric.png"),
          plot = plot1,
-         width = 5,
-         height = 5)
-
-  plot2 <- ggplot(x_train, aes(x = target, y = hours_per_week)) +
-    geom_boxplot() +
-    ggtitle("Work Hours distribution for different income levels") +
-    xlab("Income Levels") +
-    ylab("Work Hours per week")
-
-  ggsave(file = paste0(out_dir, "/work-hours.png"),
-         plot = plot2,
          width = 5,
          height = 5)
   

@@ -40,6 +40,8 @@ numeric_columns <- column_types$integer
 
 kable(bind_rows(Column = colnames(census_data), missingValues = colSums(is.na(census_data))),
       caption = "Table 2. Count of missing values for each feature")
+
+census_data
 ```
 From the above results, we can see that the numeric columns do not have any missing values. Only three categorical columns, workclass, occupation and native.country have some missing values. We can use the most frequent strategy to impute these missing values.
 
@@ -64,6 +66,7 @@ From the above table, we can notice that class imbalance is significant and cert
 A regression coefficient is interpreted as "the change in the output for every 1 unit change in an input variable, while holding all other input variables constant". However, when two numeric input variables are highly correlated, it is almost impossible to change the value of one input variable without changing the other. Hence, the coefficients become very sensitive to small changes in the model and the coefficient estimates tend to swing wildly.
 
 Therefore, it is important to check the data set for the presence of collinearity.
+
 ```{r echo=FALSE}
 
 knitr::include_graphics("../results/correlation_heatmap.png")
@@ -71,26 +74,17 @@ knitr::include_graphics("../results/correlation_heatmap.png")
 From the above correlation heatmap, we can observe that none of the numeric variables seem to be highly correlated.
 
 
-## Exploring the relationship between age and income levels
+## Exploring the relationship between numeric features and target variables
 ```{r}
 
-knitr::include_graphics("../results/age.png")
+knitr::include_graphics("../results/box_plots_numeric.png")
 
 ```
-From the above plot, it can be inferred that, in general as age increases, i.e. experience level increases, there tends to be higher income levels.
-
-
-## Exploring the relationship between Work hours per week and income levels
-
-For the purpose of exploring the relationship between working hours per week and income levels
-
-```{r}
-
-knitr::include_graphics("../results/work-hours.png")
-
-
-```
+The box plots of all scaled numeric features categorized by the target variable is presented above. The target 0 is <50k and the target 1 is >=50k.
+From the above plot, it can be inferred that, in general as age increases, i.e. experience level increases, there tends to be higher income levels. 
 Individuals with income >50k have longer average working hours per week than individuals with <50k. But there are some individuals who have income <50k, but have higher work hours.
+Another important inference is that people with higher education levels earn more on an average than people with lower education levels.
+Other numerical variables such as capital_loss and capital_gain tend to have very low median values but have a significantly high number of outliers.
 
 
 

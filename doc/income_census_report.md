@@ -3,27 +3,21 @@ Predicting Income levels of an individual
 Aishwarya Gopal, Fei Chang, Yanhua Chen
 2020/11/29
 
-  - [Summary](#summary)
-  - [Introduction](#introduction)
-  - [Methods](#methods)
-      - [Data](#data)
-      - [Analysis](#analysis)
-  - [Results & Discussion](#results-discussion)
-  - [References](#references)
-
-# Summary
+Summary
+=======
 
 Here we attempt to build a classification model using the Logistic
 Regression algorithm which uses a set of features like age, workclass,
 education etc to classify the income levels of an indivdual into one of
-the two categories: \>$50k/year or \<=$50k/year. The target class \>=50k
-was encoded as 1 and the other class as 0. Our final Logistic Regression
-model performed well on the test data set. We obtained an f1 score of
-0.69 and an overall accuracy calculated to be 0.81. It correctly
-predicted the income class of 7932 individuals. However it incorrectly
-predicted 1837 examples.
+the two categories: &gt;$50k/year or &lt;=$50k/year. The target class
+&gt;=50k was encoded as 1 and the other class as 0. Our final Logistic
+Regression model performed well on the test data set. We obtained an f1
+score of 0.69 and an overall accuracy calculated to be 0.81. It
+correctly predicted the income class of 7932 individuals. However it
+incorrectly predicted 1837 examples.
 
-# Introduction
+Introduction
+============
 
 “A large income is the best recipe for happiness I ever heard of” quotes
 the famous English novelist Jane Austen. While it might not be the only
@@ -31,7 +25,7 @@ recipe, income dictates the standard of living and economic status of an
 individual. So, we decided to study the income distribution of people
 with different education levels, years of experience etc. The
 observations in this data set are classified according to income levels,
-into two categories(\>$50k/year or \<=$50k/year). This data set
+into two categories(&gt;$50k/year or &lt;=$50k/year). This data set
 comprises of numbers from many countries around the world but, about 90%
 of the data has been collected from the USA. So, we are under the
 assumption that, the median wage required to lead a life in the USA (at
@@ -42,9 +36,11 @@ Taking into account, the importance and impact of income levels in
 determining a nation’s growth, this study aims to present meaningful
 insights regarding the same.
 
-# Methods
+Methods
+=======
 
-## Data
+Data
+----
 
 The data set used in this project is of income census created by Ronny
 Kohavi and Barry Becker. It was sourced from the UCI Machine Learning
@@ -53,15 +49,16 @@ Repository and can be found
 specifically [this
 file](https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data).
 The data contains information such as age, workclass, education etc. The
-target variable is income and it is divided into two categories (\<=50K
-and \>50K). The ultimate aim is to train a classifier to predict the
-income class.
+target variable is income and it is divided into two categories
+(&lt;=50K and &gt;50K). The ultimate aim is to train a classifier to
+predict the income class.
 
-## Analysis
+Analysis
+--------
 
 The logistic regression algorithm was used to build a classification
-model to predict whether an individual earns \>$50k/year or
-\<=$50k/year. All the variables in original data set except for
+model to predict whether an individual earns &gt;$50k/year or
+&lt;=$50k/year. All the variables in original data set except for
 education.num column was used. The education.num column is just a
 numerical representation of the education level of an individual. We
 chose to do one-hot encoding on the education column and use that
@@ -73,52 +70,62 @@ docopt (de Jonge 2018), knitr (Xie 2014), tidyverse (Wickham et al.
 2019), docopt (Keleshev 2014), os (Van Rossum and Drake 2009), Pandas
 (McKinney 2010). The code used to perform the analysis and create this
 report can be found here:
-<https://github.com/UBC-MDS/DSCI_522_Group_18>.
+<a href="https://github.com/UBC-MDS/DSCI_522_Group_18" class="uri">https://github.com/UBC-MDS/DSCI_522_Group_18</a>.
 
-# Results & Discussion
+Results & Discussion
+====================
 
 To look at the realationship between some of the predictors and the
 income class, we plotted the graphs of a few predictors according to the
-class distribution. In the first plot, we aim to visualise the age
-distribution for different income levels. From the plot, we can infer
-that, people in the higher age range, were in the higher income class.
-Experience surely plays a role in deciding the income level.
+class distribution.
 
 <div class="figure">
 
-<img src="../results/age.png" alt="Figure 1. Comparison of income levels w.r.t. age." width="100%" />
-
+<img src="../results/box_plots_numeric.png" alt="Figure 1. Boxplots of numeric variables categorized by target variable" width="100%" />
 <p class="caption">
-
-Figure 1. Comparison of income levels w.r.t. age.
-
+Figure 1. Boxplots of numeric variables categorized by target variable
 </p>
 
 </div>
 
-The relationship between work hours per week and income class is the one
-that we seek to explore next. Individuals with income \>50k have longer
-average working hours per week than individuals with \<50k. But there
-are some individuals who have income \<50k, but have higher work hours.
+The box plots of all scaled numeric features categorized by the target
+variable is presented above. The target 0 is &lt;50k and the target 1 is
+&gt;=50k.
 
-<div class="figure">
+From the above plot, it can be inferred that, in general as age
+increases, i.e. experience level increases, there tends to be higher
+income levels.
 
-<img src="../results/work-hours.png" alt="Figure 1. Comparison of income levels w.r.t. average work hours per week." width="100%" />
+Individuals with income &gt;50k have longer average working hours per
+week than individuals with &lt;50k. But there are some individuals who
+have income &lt;50k, but have higher work hours.
 
-<p class="caption">
+Another important inference is that people with higher education levels
+earn more on an average than people with lower education levels.
 
-Figure 1. Comparison of income levels w.r.t. average work hours per
-week.
+Other numerical variables such as capital\_loss and capital\_gain tend
+to have very low median values but have a significantly high number of
+outliers.
 
-</p>
+The next area of concern is collinearity. When two numeric input
+variables are highly correlated, it is almost impossible to change the
+value of one input variable without changing the other. Hence, the
+coefficients become very sensitive to small changes in the model and the
+coefficient estimates tend to swing wildly. To address this, we plotted
+a correlation heatmap.
 
-</div>
+From the below correlation heatmap, we can observe that none of the
+numeric variables seem to be highly correlated. Hence, we decided to
+retain all the features except education (education and education.num
+present the same information) for training the model.
+
+<img src="../results/correlation_heatmap.png" width="1500" />
 
 We chose to build a simple classification model. To find the model that
-best predicted whether an individual earns \>50k or \<=50k, we performed
-10-fold cross validation using the Logistic regression algorithm and
-Random Forest Classification. We observed that the Random Forest
-Classification generates a higher training accuracy and f1 score,
+best predicted whether an individual earns &gt;50k or &lt;=50k, we
+performed 10-fold cross validation using the Logistic regression
+algorithm and Random Forest Classification. We observed that the Random
+Forest Classification generates a higher training accuracy and f1 score,
 however, its advantage in cross-validation scores is not obvious.
 Meanwhile, the gap between train and cross-validation score is very
 large in Random Forest Classification, which indicates the model is
@@ -126,239 +133,125 @@ overfitted. At this point, we decide to use Logistic Regression
 algorithm to build the prediction model.
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
-
 <caption>
-
 Table 1. Cross validate scores of model performance on train data.
-
 </caption>
-
 <thead>
-
 <tr>
-
 <th style="text-align:left;">
-
 X
-
 </th>
-
 <th style="text-align:right;">
-
 DummyClassifier
-
 </th>
-
 <th style="text-align:right;">
-
 LogisticRegression
-
 </th>
-
 <th style="text-align:right;">
-
 RandomForestClassifier
-
 </th>
-
 </tr>
-
 </thead>
-
 <tbody>
-
 <tr>
-
 <td style="text-align:left;">
-
 fit\_time
-
 </td>
-
 <td style="text-align:right;">
-
-0.0274996
-
+0.0437861
 </td>
-
 <td style="text-align:right;">
-
-2.7122991
-
+2.7913960
 </td>
-
 <td style="text-align:right;">
-
-6.0950031
-
+5.9262993
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;">
-
 score\_time
-
 </td>
-
 <td style="text-align:right;">
-
-0.0051007
-
+0.0056019
 </td>
-
 <td style="text-align:right;">
-
-0.0073028
-
+0.0063347
 </td>
-
 <td style="text-align:right;">
-
-0.1235027
-
+0.1259214
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;">
-
 test\_accuracy
-
 </td>
-
 <td style="text-align:right;">
-
-0.6312732
-
+0.6360562
 </td>
-
 <td style="text-align:right;">
-
 0.8099776
-
 </td>
-
 <td style="text-align:right;">
-
-0.8568353
-
+0.8553438
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;">
-
 train\_accuracy
-
 </td>
-
 <td style="text-align:right;">
-
-0.6343551
-
+0.6335703
 </td>
-
 <td style="text-align:right;">
-
-0.8108986
-
+0.8109034
 </td>
-
 <td style="text-align:right;">
-
-0.9999269
-
+0.9999318
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;">
-
 test\_f1
-
 </td>
-
 <td style="text-align:right;">
-
-0.2340038
-
+0.2404367
 </td>
-
 <td style="text-align:right;">
-
 0.6819067
-
 </td>
-
 <td style="text-align:right;">
-
-0.6715969
-
+0.6680953
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;">
-
 train\_f1
-
 </td>
-
 <td style="text-align:right;">
-
-0.2382800
-
+0.2374736
 </td>
-
 <td style="text-align:right;">
-
-0.6838424
-
+0.6838377
 </td>
-
 <td style="text-align:right;">
-
-0.9998478
-
+0.9998579
 </td>
-
 </tr>
-
 </tbody>
-
 </table>
 
 Our prediction model performed quite well on test data, the confusion
 matrix below indicates it only made 1837 mistakes. However, most of the
-mistake are from the “\>=50K” group.
+mistake are from the “&gt;=50K” group.
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
-
 <caption>
-
 Table 2. Confusion matrix of model performance on test data.
-
 </caption>
-
 <thead>
-
 <tr>
-
 <th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
-
 </th>
-
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
 
 <div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
@@ -368,315 +261,164 @@ Reference
 </div>
 
 </th>
-
 </tr>
-
 <tr>
-
 <th style="text-align:left;">
-
 </th>
-
 <th style="text-align:right;">
-
-\<50k
-
+&lt;50k
 </th>
-
 <th style="text-align:right;">
-
-\>=50k
-
+&gt;=50k
 </th>
-
 </tr>
-
 </thead>
-
 <tbody>
-
 <tr grouplength="2">
-
 <td colspan="3" style="border-bottom: 1px solid;">
-
 <strong>Predicted</strong>
-
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left; padding-left:  2em;" indentlevel="1">
-
-\<50k
-
+&lt;50k
 </td>
-
 <td style="text-align:right;">
-
 5929
-
 </td>
-
 <td style="text-align:right;">
-
 1473
-
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left; padding-left:  2em;" indentlevel="1">
-
-\>=50k
-
+&gt;=50k
 </td>
-
 <td style="text-align:right;">
-
 364
-
 </td>
-
 <td style="text-align:right;">
-
 2003
-
 </td>
-
 </tr>
-
 </tbody>
-
 </table>
 
 This problem is also reflected by the classification report, that the
-f1.score of “\>=50k” group is much lower than “\<50k” group. This model
-is not good enough to yet predict the income status of rich people.
+f1.score of “&gt;=50k” group is much lower than “&lt;50k” group. This
+model is not good enough to yet predict the income status of rich
+people.
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
-
 <caption>
-
 Table 3. Classification report of model performance on test data.
-
 </caption>
-
 <thead>
-
 <tr>
-
 <th style="text-align:left;">
-
 X
-
 </th>
-
 <th style="text-align:right;">
-
 precision
-
 </th>
-
 <th style="text-align:right;">
-
 recall
-
 </th>
-
 <th style="text-align:right;">
-
 f1.score
-
 </th>
-
 <th style="text-align:right;">
-
 support
-
 </th>
-
 </tr>
-
 </thead>
-
 <tbody>
-
 <tr>
-
 <td style="text-align:left;">
-
-\<50k
-
+&lt;50k
 </td>
-
 <td style="text-align:right;">
-
 0.9421580
-
 </td>
-
 <td style="text-align:right;">
-
 0.8009997
-
 </td>
-
 <td style="text-align:right;">
-
 0.8658635
-
 </td>
-
 <td style="text-align:right;">
-
 7402.0000000
-
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;">
-
-\>=50k
-
+&gt;=50k
 </td>
-
 <td style="text-align:right;">
-
 0.5762371
-
 </td>
-
 <td style="text-align:right;">
-
 0.8462188
-
 </td>
-
 <td style="text-align:right;">
-
 0.6856067
-
 </td>
-
 <td style="text-align:right;">
-
 2367.0000000
-
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;">
-
 accuracy
-
 </td>
-
 <td style="text-align:right;">
-
 0.8119562
-
 </td>
-
 <td style="text-align:right;">
-
 0.8119562
-
 </td>
-
 <td style="text-align:right;">
-
 0.8119562
-
 </td>
-
 <td style="text-align:right;">
-
 0.8119562
-
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;">
-
 macro avg
-
 </td>
-
 <td style="text-align:right;">
-
 0.7591975
-
 </td>
-
 <td style="text-align:right;">
-
 0.8236093
-
 </td>
-
 <td style="text-align:right;">
-
 0.7757351
-
 </td>
-
 <td style="text-align:right;">
-
 9769.0000000
-
 </td>
-
 </tr>
-
 <tr>
-
 <td style="text-align:left;">
-
 weighted avg
-
 </td>
-
 <td style="text-align:right;">
-
 0.8534964
-
 </td>
-
 <td style="text-align:right;">
-
 0.8119562
-
 </td>
-
 <td style="text-align:right;">
-
 0.8221878
-
 </td>
-
 <td style="text-align:right;">
-
 9769.0000000
-
 </td>
-
 </tr>
-
 </tbody>
-
 </table>
 
 To further improve this model in future, there are several things we can
@@ -687,7 +429,8 @@ misclassification and explore whether any feature engineering could be
 used to help the model better predict on observations that it currently
 is making mistakes on.
 
-# References
+References
+==========
 
 <div id="refs" class="references hanging-indent">
 
