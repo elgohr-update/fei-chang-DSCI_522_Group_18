@@ -50,7 +50,7 @@ The data set used in this project is of income census created by Ronny Kohavi an
 
 ## Analysis
 
-The logistic regression algorithm was used to build a classification model to predict whether an individual earns \>\$50k/year or \<=\$50k/year. All the variables in original data set except for education.num column was used. The education.num column is just a numerical representation of the education level of an individual. We chose to do one-hot encoding on the education column and use that instead. f1 score was chosen as the desired metric and a 10 fold cross-validation was performed on the train set. The R and Python programming languages [@R; @Python] and the following R and Python packages were used to perform the analysis: docopt [@docopt], knitr [@knitr], tidyverse [@tidyverse], docopt [@docoptpython], os [@Python], Pandas [@mckinney-proc-scipy-2010]. The code used to perform the analysis and create this report can be found here: <https://github.com/UBC-MDS/DSCI_522_Group_18>.
+The logistic regression algorithm was used to build a classification model to predict whether an individual earns \>\$50k/year or \<=\$50k/year. All the variables in original data set except for education column was used. The education.num column is just a numerical representation of the education level of an individual. f1 score was chosen as the desired metric and a 10 fold cross-validation was performed on the train set. The R and Python programming languages [@R; @Python] and the following R and Python packages were used to perform the analysis: docopt [@docopt], knitr [@knitr], tidyverse [@tidyverse], docopt [@docoptpython], os [@Python], Pandas [@mckinney-proc-scipy-2010]. The code used to perform the analysis and create this report can be found here: <https://github.com/UBC-MDS/DSCI_522_Group_18>.
 
 # Results & Discussion
 
@@ -75,7 +75,7 @@ The next area of concern is collinearity. When two numeric input variables are h
 
 From the below correlation heatmap, we can observe that none of the numeric variables seem to be highly correlated. Hence, we decided to retain all the features except education (education and education.num present the same information) for training the model.
 
-```{r}
+```{r fig.height=4, fig.width=4}
 knitr::include_graphics(correlation_heatmap)
 ```
 
@@ -86,7 +86,7 @@ kable(cross_validate_scores, caption = "Table 1. Cross validate scores of model 
   kable_styling(full_width = FALSE)
 ```
 
-Our prediction model performed quite well on test data, the confusion matrix below indicates it only made `r confusion_matrix[2, 1] + confusion_matrix[1, 2]` mistakes. However, most of the mistake are from the "\>=50K" group.
+Our prediction model performed quite well on test data, the confusion matrix below indicates it only made `r confusion_matrix[2, 1] + confusion_matrix[1, 2]` mistakes. It predicted `r confusion_matrix[2, 1]` examples as belonging to "\>=50K" group while they actually belong to the "\<50K" group. These are termed as False Positives(FP). The model predicted `r confusion_matrix[1, 2]` as "\<50K" group while the actual prediction is "\>=50K". These are termed as False Negatives(FN). The examples correctly predicted as belonging to "\<50K" group are termed as True Negatives(TN) and the examples correctly predicted as belonging to "\>=50K" group are termed as True Positives(TP). However, most of the mistake are from the "\>=50K" group. 
 
 ```{r confusion-matrix, echo=FALSE}
 kable(confusion_matrix, caption = "Table 2. Confusion matrix of model performance on test data.") %>%
@@ -95,7 +95,7 @@ kable(confusion_matrix, caption = "Table 2. Confusion matrix of model performanc
   pack_rows("Predicted", 1, 2)
 ```
 
-This problem is also reflected by the classification report, that the f1.score of "\>=50k" group is much lower than "\<50k" group. This model is not good enough to yet predict the income status of rich people.
+This problem is also reflected by the classification report, that the f1.score of "\>=50k" group is much lower than "\<50k" group. Precision is calculated as TP/(TP+FP) while Recall is calculated as (TP/TP+FN). f1 score is the harmonic mean of Precision and Recall. This model is not good enough to yet predict the income status of rich people. 
 
 ```{r}
 kable(classification_report, caption = "Table 3. Classification report of model performance on test data.")%>%

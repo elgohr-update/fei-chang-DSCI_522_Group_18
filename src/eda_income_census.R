@@ -42,8 +42,8 @@ main <- function(train, out_dir) {
 
   ggsave(file = paste0(out_dir, "/correlation_heatmap.png"),
          plot = plot0,
-         width = 5,
-         height = 5)
+         width = 4,
+         height = 4)
     
     numeric_features <- c( "age",
                             "fnlwgt",

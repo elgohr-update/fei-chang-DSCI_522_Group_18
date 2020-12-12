@@ -59,17 +59,16 @@ Analysis
 The logistic regression algorithm was used to build a classification
 model to predict whether an individual earns &gt;$50k/year or
 &lt;=$50k/year. All the variables in original data set except for
-education.num column was used. The education.num column is just a
-numerical representation of the education level of an individual. We
-chose to do one-hot encoding on the education column and use that
-instead. f1 score was chosen as the desired metric and a 10 fold
-cross-validation was performed on the train set. The R and Python
-programming languages (R Core Team 2019; Van Rossum and Drake 2009) and
-the following R and Python packages were used to perform the analysis:
-docopt (de Jonge 2018), knitr (Xie 2014), tidyverse (Wickham et al.
-2019), docopt (Keleshev 2014), os (Van Rossum and Drake 2009), Pandas
-(McKinney 2010). The code used to perform the analysis and create this
-report can be found here:
+education column was used. The education.num column is just a numerical
+representation of the education level of an individual. f1 score was
+chosen as the desired metric and a 10 fold cross-validation was
+performed on the train set. The R and Python programming languages (R
+Core Team 2019; Van Rossum and Drake 2009) and the following R and
+Python packages were used to perform the analysis: docopt (de Jonge
+2018), knitr (Xie 2014), tidyverse (Wickham et al. 2019), docopt
+(Keleshev 2014), os (Van Rossum and Drake 2009), Pandas (McKinney 2010).
+The code used to perform the analysis and create this report can be
+found here:
 <a href="https://github.com/UBC-MDS/DSCI_522_Group_18" class="uri">https://github.com/UBC-MDS/DSCI_522_Group_18</a>.
 
 Results & Discussion
@@ -119,7 +118,7 @@ numeric variables seem to be highly correlated. Hence, we decided to
 retain all the features except education (education and education.num
 present the same information) for training the model.
 
-<img src="../results/correlation_heatmap.png" width="1500" />
+<img src="../results/correlation_heatmap.png" width="1200" />
 
 We chose to build a simple classification model. To find the model that
 best predicted whether an individual earns &gt;50k or &lt;=50k, we
@@ -158,13 +157,13 @@ RandomForestClassifier
 fit\_time
 </td>
 <td style="text-align:right;">
-0.0437861
+0.0309084
 </td>
 <td style="text-align:right;">
-2.7913960
+3.0091244
 </td>
 <td style="text-align:right;">
-5.9262993
+6.4579720
 </td>
 </tr>
 <tr>
@@ -172,13 +171,13 @@ fit\_time
 score\_time
 </td>
 <td style="text-align:right;">
-0.0056019
+0.0043773
 </td>
 <td style="text-align:right;">
-0.0063347
+0.0080287
 </td>
 <td style="text-align:right;">
-0.1259214
+0.1432274
 </td>
 </tr>
 <tr>
@@ -186,13 +185,13 @@ score\_time
 test\_accuracy
 </td>
 <td style="text-align:right;">
-0.6360562
+0.6361002
 </td>
 <td style="text-align:right;">
 0.8099776
 </td>
 <td style="text-align:right;">
-0.8553438
+0.8558705
 </td>
 </tr>
 <tr>
@@ -200,13 +199,13 @@ test\_accuracy
 train\_accuracy
 </td>
 <td style="text-align:right;">
-0.6335703
+0.6354276
 </td>
 <td style="text-align:right;">
 0.8109034
 </td>
 <td style="text-align:right;">
-0.9999318
+0.9999513
 </td>
 </tr>
 <tr>
@@ -214,13 +213,13 @@ train\_accuracy
 test\_f1
 </td>
 <td style="text-align:right;">
-0.2404367
+0.2400927
 </td>
 <td style="text-align:right;">
 0.6819067
 </td>
 <td style="text-align:right;">
-0.6680953
+0.6691644
 </td>
 </tr>
 <tr>
@@ -228,13 +227,13 @@ test\_f1
 train\_f1
 </td>
 <td style="text-align:right;">
-0.2374736
+0.2419285
 </td>
 <td style="text-align:right;">
 0.6838377
 </td>
 <td style="text-align:right;">
-0.9998579
+0.9998985
 </td>
 </tr>
 </tbody>
