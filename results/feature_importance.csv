@@ -1,0 +1,6 @@
+,positive feats,positive weights,negative feats,negative weights
+0,native_country_ Japan,0.9838331259942886,occupation_ Priv-house-serv,-1.8012421754967962
+1,relationship_ Wife,1.3222382857223383,native_country_ Peru,-1.1472211619944934
+2,marital_status_ Married-civ-spouse,1.5243196390809095,marital_status_ Never-married,-1.0782695533879845
+3,marital_status_ Married-AF-spouse,1.6683784240479007,native_country_ Dominican-Republic,-1.037083144468399
+4,capital_gain,2.2418809371329234,workclass_ Without-pay,-0.9701736856525419

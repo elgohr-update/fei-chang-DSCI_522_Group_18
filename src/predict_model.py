@@ -56,24 +56,36 @@ def main(train, out_dir):
 	#Fit the model with training data
 	log_clf = LogisticRegression(class_weight = "balanced", max_iter = 2000)
 	log_clf.fit(X_train, y_train)
-	rf_clf = RandomForestClassifier(class_weight = "balanced")
-	rf_clf.fit(X_train, y_train)
 	
+	#Create feature importance table
+	weights = log_clf.coef_.flatten()
+	feat = train_df.columns.tolist()
+	inds = np.argsort(log_clf.coef_.flatten())
+	pos_words = [feat[index] for index in inds[-5:]]
+	neg_words = [feat[index] for index in inds[:5]]
+	pos_words_weights = [(weights[index]) for index in inds[-5:]]
+	neg_words_weights = [(weights[index]) for index in inds[:5]]
+	feat_imp_df = pd.DataFrame(
+    	{
+        	"positive feats": pos_words, "positive weights": pos_words_weights,
+        	"negative feats": neg_words,"negative weights": neg_words_weights,
+    	})
+
+
 	#Save the results
 	save_log = out_dir+'/logistic_model.joblib'
-	save_rf = out_dir+'/randomforest_model.joblib'
 
 
 	try:
 		dump(filename = save_log, value = log_clf)
-		dump(filename = save_rf, value = rf_clf)
 		results_df.to_csv(out_dir+'/cross_validate_scores.csv')
+		feat_imp_df.to_csv(out_dir+'/feature_importance.csv')
 	except:
 		os.remove(save_log)
 		os.remove(save_rf)
 		dump(filename = save_log, value = log_clf)
-		dump(filename = save_rf, value = rf_clf)
 		results_df.to_csv(out_dir+'/cross_validate_scores.csv')
+		feat_imp_df.to_csv(out_dir+'/feature_importance.csv')
 
 	
 
