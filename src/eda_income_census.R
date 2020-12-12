@@ -12,7 +12,6 @@ library(tidyverse)
 library(docopt)
 library(knitr)
 library(ggplot2)
-library(cowplot)
 library(reshape2)
 theme_set(theme_minimal())
 
