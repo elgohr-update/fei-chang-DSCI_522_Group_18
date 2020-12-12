@@ -13,7 +13,7 @@ The final report can be found [here](http://htmlpreview.github.io/?https://raw.g
 
 ## Usage
 
-1. Using Docker
+##### 1. Using Docker
 
 note - the instructions in this section also depends on running this in a unix shell (e.g., terminal or Git Bash)
 
@@ -30,7 +30,7 @@ docker run --rm -v /$(pwd):/home/rstudio/income_project yhchen20/income-predicti
 ```
 
 
-2. Without using Docker
+##### 2. Without using Docker
 To replicate the analysis, clone this GitHub repository, install the dependencies listed below, and run the following command at the command line/terminal from the root directory of this project:
 
 ```
