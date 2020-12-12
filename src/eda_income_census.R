@@ -36,6 +36,7 @@ main <- function(train, out_dir) {
   
   plot0<- ggplot(data = melted_cormat, aes(x=Var1, y=Var2, fill=value)) +
     geom_tile() +
+    theme(axis.text.x = element_text(angle=90, hjust=1, vjust=.5)) + 
     ggtitle("Correlation Heatmap for Numeric Features ") +
     xlab("Numeric Features") +
     ylab("Numeric Features")

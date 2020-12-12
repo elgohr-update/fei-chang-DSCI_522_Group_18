@@ -30,6 +30,9 @@ rownames(confusion_matrix) <- c("<50k", ">=50k")
 classification_report <- read.csv("../results/classification_report.csv")
 classification_report$X[1] = c("<50k")
 classification_report$X[2] = c(">=50k")
+feature_importance <- read.csv("../results/feature_importance.csv")%>%
+  column_to_rownames(., var = "X")
+
 ```
 
 # Summary
@@ -54,22 +57,24 @@ The logistic regression algorithm was used to build a classification model to pr
 
 # Results & Discussion
 
-To look at the realationship between some of the predictors and the income class, we plotted the graphs of a few predictors according to the class distribution.  
+### Explanatory Data Analysis
+
+To look at the realationship between some of the predictors and the income class, we plotted the graphs of a few predictors according to the class distribution.
 
 ```{r Boxplots of Numeric variables, echo=FALSE, fig.cap="Figure 1. Boxplots of numeric variables categorized by target variable", out.width = '100%'}
 
 knitr::include_graphics(box_plots_numeric)
 ```
 
-The box plots of all scaled numeric features categorized by the target variable is presented above. The target 0 is <50k and the target 1 is >=50k.
+The box plots of all scaled numeric features categorized by the target variable is presented above. The target 0 is \<50k and the target 1 is \>=50k.
 
-From the above plot, it can be inferred that, in general as age increases, i.e. experience level increases, there tends to be higher income levels. 
+From the above plot, it can be inferred that, in general as age increases, i.e. experience level increases, there tends to be higher income levels.
 
-Individuals with income >50k have longer average working hours per week than individuals with <50k. But there are some individuals who have income <50k, but have higher work hours.
+Individuals with income \>50k have longer average working hours per week than individuals with \<50k. But there are some individuals who have income \<50k, but have higher work hours.
 
 Another important inference is that people with higher education levels earn more on an average than people with lower education levels.
 
-Other numerical variables such as capital_loss and capital_gain tend to have very low median values but have a significantly high number of outliers.
+Other numerical variables such as capital\_loss and capital\_gain tend to have very low median values but have a significantly high number of outliers.
 
 The next area of concern is collinearity. When two numeric input variables are highly correlated, it is almost impossible to change the value of one input variable without changing the other. Hence, the coefficients become very sensitive to small changes in the model and the coefficient estimates tend to swing wildly. To address this, we plotted a correlation heatmap.
 
@@ -79,29 +84,46 @@ From the below correlation heatmap, we can observe that none of the numeric vari
 knitr::include_graphics(correlation_heatmap)
 ```
 
+### Model Selection
+
 We chose to build a simple classification model. To find the model that best predicted whether an individual earns \>50k or \<=50k, we performed 10-fold cross validation using the Logistic regression algorithm and Random Forest Classification. We observed that the Random Forest Classification generates a higher training accuracy and f1 score, however, its advantage in cross-validation scores is not obvious. Meanwhile, the gap between train and cross-validation score is very large in Random Forest Classification, which indicates the model is overfitted. At this point, we decide to use Logistic Regression algorithm to build the prediction model.
 
 ```{r present cross validation score, echo=FALSE}
-kable(cross_validate_scores, caption = "Table 1. Cross validate scores of model performance on train data.") %>%
+kable(cross_validate_scores %>% mutate_if(is.numeric, round, 3), caption = "Table 1. Cross validate scores of model performance on train data.") %>%
   kable_styling(full_width = FALSE)
 ```
 
-Our prediction model performed quite well on test data, the confusion matrix below indicates it only made `r confusion_matrix[2, 1] + confusion_matrix[1, 2]` mistakes. It predicted `r confusion_matrix[2, 1]` examples as belonging to "\>=50K" group while they actually belong to the "\<50K" group. These are termed as False Positives(FP). The model predicted `r confusion_matrix[1, 2]` as "\<50K" group while the actual prediction is "\>=50K". These are termed as False Negatives(FN). The examples correctly predicted as belonging to "\<50K" group are termed as True Negatives(TN) and the examples correctly predicted as belonging to "\>=50K" group are termed as True Positives(TP). However, most of the mistake are from the "\>=50K" group. 
+### Feature Importance
+
+Looking through the feature importance of our model, we found some interesting information:
+
+It seems that married people usually have higher probability to gain more than 50k per year, especially for females (relationship\_Wife), while people who are never married have higher probability to gain less than 50k.
+
+```{r present feature importance, echo=FALSE}
+kable(feature_importance %>% mutate_if(is.numeric, round, 3), caption = "Table 2. feature importance of final model") %>%
+  kable_styling(full_width = FALSE)
+```
+
+### Results
+
+Our prediction model performed quite well on test data, the confusion matrix below indicates it only made `r confusion_matrix[2, 1] + confusion_matrix[1, 2]` mistakes, so the test accuracy is `r round((confusion_matrix[1,1] + confusion_matrix[2,2])/sum(confusion_matrix),3)`. It predicted `r confusion_matrix[2, 1]` examples as belonging to "\>=50K" group while they actually belong to the "\<50K" group. These are termed as False Positives(FP). The model predicted `r confusion_matrix[1, 2]` as "\<50K" group while the actual prediction is "\>=50K". These are termed as False Negatives(FN). The examples correctly predicted as belonging to "\<50K" group are termed as True Negatives(TN) and the examples correctly predicted as belonging to "\>=50K" group are termed as True Positives(TP). However, most of the mistake are from the "\>=50K" group.
 
 ```{r confusion-matrix, echo=FALSE}
-kable(confusion_matrix, caption = "Table 2. Confusion matrix of model performance on test data.") %>%
+kable(confusion_matrix, caption = "Table 3. Confusion matrix of model performance on test data.") %>%
   kable_styling(full_width = FALSE) %>%
   add_header_above(c(" ", "Reference" = 2)) %>% 
   pack_rows("Predicted", 1, 2)
 ```
 
-This problem is also reflected by the classification report, that the f1.score of "\>=50k" group is much lower than "\<50k" group. Precision is calculated as TP/(TP+FP) while Recall is calculated as (TP/TP+FN). f1 score is the harmonic mean of Precision and Recall. This model is not good enough to yet predict the income status of rich people. 
+This problem is also reflected by the classification report, that the f1.score of "\>=50k" group is much lower than "\<50k" group. Precision is calculated as TP/(TP+FP) while Recall is calculated as (TP/TP+FN). f1 score is the harmonic mean of Precision and Recall. This model is not good enough to yet predict the income status of rich people.
 
 ```{r}
-kable(classification_report, caption = "Table 3. Classification report of model performance on test data.")%>%
+kable(classification_report[-3,] %>% mutate_if(is.numeric, round, 3), caption = "Table 4. Classification report of model performance on test data.")%>%
   kable_styling(full_width = FALSE)
 ```
 
-To further improve this model in future, there are several things we can suggest. First, we could consider to add some hyperparameters to control the machine learning process to get a better model. Second, we could look through the model to see if there are any feature(s) driving to a misclassification and explore whether any feature engineering could be used to help the model better predict on observations that it currently is making mistakes on.
+### Further Discussion
+
+To further improve this model in future, we have attempted tune hyperparameters and also applied feature selection on it. However, both approaches didn't help to improve the model improvements. There are several things we can suggest which beyond our capability . First, exploring some method about feature engineering which might be helpful to improve the model performance. Second, because the misclassification is concentrated in \>50k group, having more data from that group will improve the prediction accuracy.
 
 # References
