@@ -57,7 +57,7 @@ The logistic regression algorithm was used to build a classification model to pr
 
 # Results & Discussion
 
-### Explanatory Data Analysis
+### Exploratory Data Analysis
 
 To look at the realationship between some of the predictors and the income class, we plotted the graphs of a few predictors according to the class distribution.
 
