@@ -17,8 +17,8 @@ library(tidyverse)
 ```
 
 ```{r load eda figures, include=FALSE}
-age <- "../results/age.png"
-work_hours <- "../results/work-hours.png"
+box_plots_numeric <- "../results/box_plots_numeric.png"
+correlation_heatmap <- "../results/correlation_heatmap.png"
 ```
 
 ```{r load model results, include=FALSE}
@@ -50,21 +50,33 @@ The data set used in this project is of income census created by Ronny Kohavi an
 
 ## Analysis
 
-The logistic regression algorithm was used to build a classification model to predict whether an individual earns \>\$50k/year or \<=\$50k/year. All the variables in original data set except for education.num column was used. The education.num column is just a numerical representation of the education level of an individual. We chose to do one-hot encoding on the education column and use that instead. f1 score was chosen as the desired metric and a 10 fold cross-validation was performed on the train set. The R and Python programming languages [@R; @Python] and the following R and Python packages were used to perform the analysis: docopt [@docopt], knitr [@knitr], tidyverse [@tidyverse], docopt [@docoptpython], os [@Python], Pandas [@mckinney-proc-scipy-2010]. The code used to perform the analysis and create this report can be found here: <https://github.com/UBC-MDS/DSCI_522_Group_18>.
+The logistic regression algorithm was used to build a classification model to predict whether an individual earns \>\$50k/year or \<=\$50k/year. All the variables in original data set except for education column was used. The education.num column is just a numerical representation of the education level of an individual. f1 score was chosen as the desired metric and a 10 fold cross-validation was performed on the train set. The R and Python programming languages [@R; @Python] and the following R and Python packages were used to perform the analysis: docopt [@docopt], knitr [@knitr], tidyverse [@tidyverse], docopt [@docoptpython], os [@Python], Pandas [@mckinney-proc-scipy-2010]. The code used to perform the analysis and create this report can be found here: <https://github.com/UBC-MDS/DSCI_522_Group_18>.
 
 # Results & Discussion
 
-To look at the realationship between some of the predictors and the income class, we plotted the graphs of a few predictors according to the class distribution. In the first plot, we aim to visualise the age distribution for different income levels. From the plot, we can infer that, people in the higher age range, were in the higher income class. Experience surely plays a role in deciding the income level.
+To look at the realationship between some of the predictors and the income class, we plotted the graphs of a few predictors according to the class distribution.  
 
-```{r age v/s income distribution, echo=FALSE, fig.cap="Figure 1. Comparison of income levels w.r.t. age.", out.width = '100%'}
+```{r Boxplots of Numeric variables, echo=FALSE, fig.cap="Figure 1. Boxplots of numeric variables categorized by target variable", out.width = '100%'}
 
-knitr::include_graphics(age)
+knitr::include_graphics(box_plots_numeric)
 ```
 
-The relationship between work hours per week and income class is the one that we seek to explore next. Individuals with income \>50k have longer average working hours per week than individuals with \<50k. But there are some individuals who have income \<50k, but have higher work hours.
+The box plots of all scaled numeric features categorized by the target variable is presented above. The target 0 is <50k and the target 1 is >=50k.
 
-```{r work-hours v/s income distribution, echo=FALSE, fig.cap="Figure 1. Comparison of income levels w.r.t. average work hours per week.", out.width = '100%'}
-knitr::include_graphics(work_hours)
+From the above plot, it can be inferred that, in general as age increases, i.e. experience level increases, there tends to be higher income levels. 
+
+Individuals with income >50k have longer average working hours per week than individuals with <50k. But there are some individuals who have income <50k, but have higher work hours.
+
+Another important inference is that people with higher education levels earn more on an average than people with lower education levels.
+
+Other numerical variables such as capital_loss and capital_gain tend to have very low median values but have a significantly high number of outliers.
+
+The next area of concern is collinearity. When two numeric input variables are highly correlated, it is almost impossible to change the value of one input variable without changing the other. Hence, the coefficients become very sensitive to small changes in the model and the coefficient estimates tend to swing wildly. To address this, we plotted a correlation heatmap.
+
+From the below correlation heatmap, we can observe that none of the numeric variables seem to be highly correlated. Hence, we decided to retain all the features except education (education and education.num present the same information) for training the model.
+
+```{r fig.height=4, fig.width=4}
+knitr::include_graphics(correlation_heatmap)
 ```
 
 We chose to build a simple classification model. To find the model that best predicted whether an individual earns \>50k or \<=50k, we performed 10-fold cross validation using the Logistic regression algorithm and Random Forest Classification. We observed that the Random Forest Classification generates a higher training accuracy and f1 score, however, its advantage in cross-validation scores is not obvious. Meanwhile, the gap between train and cross-validation score is very large in Random Forest Classification, which indicates the model is overfitted. At this point, we decide to use Logistic Regression algorithm to build the prediction model.
@@ -74,7 +86,7 @@ kable(cross_validate_scores, caption = "Table 1. Cross validate scores of model 
   kable_styling(full_width = FALSE)
 ```
 
-Our prediction model performed quite well on test data, the confusion matrix below indicates it only made `r confusion_matrix[2, 1] + confusion_matrix[1, 2]` mistakes. However, most of the mistake are from the "\>=50K" group.
+Our prediction model performed quite well on test data, the confusion matrix below indicates it only made `r confusion_matrix[2, 1] + confusion_matrix[1, 2]` mistakes. It predicted `r confusion_matrix[2, 1]` examples as belonging to "\>=50K" group while they actually belong to the "\<50K" group. These are termed as False Positives(FP). The model predicted `r confusion_matrix[1, 2]` as "\<50K" group while the actual prediction is "\>=50K". These are termed as False Negatives(FN). The examples correctly predicted as belonging to "\<50K" group are termed as True Negatives(TN) and the examples correctly predicted as belonging to "\>=50K" group are termed as True Positives(TP). However, most of the mistake are from the "\>=50K" group. 
 
 ```{r confusion-matrix, echo=FALSE}
 kable(confusion_matrix, caption = "Table 2. Confusion matrix of model performance on test data.") %>%
@@ -83,7 +95,7 @@ kable(confusion_matrix, caption = "Table 2. Confusion matrix of model performanc
   pack_rows("Predicted", 1, 2)
 ```
 
-This problem is also reflected by the classification report, that the f1.score of "\>=50k" group is much lower than "\<50k" group. This model is not good enough to yet predict the income status of rich people.
+This problem is also reflected by the classification report, that the f1.score of "\>=50k" group is much lower than "\<50k" group. Precision is calculated as TP/(TP+FP) while Recall is calculated as (TP/TP+FN). f1 score is the harmonic mean of Precision and Recall. This model is not good enough to yet predict the income status of rich people. 
 
 ```{r}
 kable(classification_report, caption = "Table 3. Classification report of model performance on test data.")%>%
