@@ -1,5 +1,5 @@
 # Docker file for the income status predictor project
-# Yanhua CHen, Dec, 2020
+# Yanhua Chen, Dec, 2020
 
 # use rocker/tidyverse as the base imag
 FROM rocker/tidyverse
