@@ -9,7 +9,7 @@ Aishwarya Gopal, Fei Chang, Yanhua Chen
       - [Data](#data)
       - [Analysis](#analysis)
   - [Results & Discussion](#results-discussion)
-      - [Explanatory Data Analysis](#explanatory-data-analysis)
+      - [Exploratory Data Analysis](#exploratory-data-analysis)
       - [Model Selection](#model-selection)
       - [Feature Importance](#feature-importance)
       - [Results](#results)
@@ -80,7 +80,7 @@ found here: <https://github.com/UBC-MDS/DSCI_522_Group_18>.
 
 # Results & Discussion
 
-### Explanatory Data Analysis
+### Exploratory Data Analysis
 
 To look at the realationship between some of the predictors and the
 income class, we plotted the graphs of a few predictors according to the
