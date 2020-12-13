@@ -42,6 +42,10 @@ To reset the repo to a clean state, with no intermediate or results files, run t
 make clean
 ```
 
+To find the dependencies of makefile, see the figure below:
+
+![Dependency Diagram](Makefile.png)
+
 
 ## Dependencies
 
