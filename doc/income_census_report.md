@@ -9,6 +9,11 @@ Aishwarya Gopal, Fei Chang, Yanhua Chen
       - [Data](#data)
       - [Analysis](#analysis)
   - [Results & Discussion](#results-discussion)
+      - [Exploratory Data Analysis](#exploratory-data-analysis)
+      - [Model Selection](#model-selection)
+      - [Feature Importance](#feature-importance)
+      - [Results](#results)
+      - [Further Discussion](#further-discussion)
   - [References](#references)
 
 # Summary
@@ -62,57 +67,71 @@ income class.
 The logistic regression algorithm was used to build a classification
 model to predict whether an individual earns \>$50k/year or
 \<=$50k/year. All the variables in original data set except for
-education.num column was used. The education.num column is just a
-numerical representation of the education level of an individual. We
-chose to do one-hot encoding on the education column and use that
-instead. f1 score was chosen as the desired metric and a 10 fold
-cross-validation was performed on the train set. The R and Python
-programming languages (R Core Team 2019; Van Rossum and Drake 2009) and
-the following R and Python packages were used to perform the analysis:
-docopt (de Jonge 2018), knitr (Xie 2014), tidyverse (Wickham et al.
-2019), docopt (Keleshev 2014), os (Van Rossum and Drake 2009), Pandas
-(McKinney 2010). The code used to perform the analysis and create this
-report can be found here:
-<https://github.com/UBC-MDS/DSCI_522_Group_18>.
+education column was used. The education.num column is just a numerical
+representation of the education level of an individual. f1 score was
+chosen as the desired metric and a 10 fold cross-validation was
+performed on the train set. The R and Python programming languages (R
+Core Team 2019; Van Rossum and Drake 2009) and the following R and
+Python packages were used to perform the analysis: docopt (de Jonge
+2018), knitr (Xie 2014), tidyverse (Wickham et al. 2019), docopt
+(Keleshev 2014), os (Van Rossum and Drake 2009), Pandas (McKinney 2010).
+The code used to perform the analysis and create this report can be
+found here: <https://github.com/UBC-MDS/DSCI_522_Group_18>.
 
 # Results & Discussion
 
+### Exploratory Data Analysis
+
 To look at the realationship between some of the predictors and the
 income class, we plotted the graphs of a few predictors according to the
-class distribution. In the first plot, we aim to visualise the age
-distribution for different income levels. From the plot, we can infer
-that, people in the higher age range, were in the higher income class.
-Experience surely plays a role in deciding the income level.
+class distribution.
 
 <div class="figure">
 
-<img src="../results/age.png" alt="Figure 1. Comparison of income levels w.r.t. age." width="100%" />
+<img src="../results/box_plots_numeric.png" alt="Figure 1. Boxplots of numeric variables categorized by target variable" width="100%" />
 
 <p class="caption">
 
-Figure 1. Comparison of income levels w.r.t. age.
+Figure 1. Boxplots of numeric variables categorized by target variable
 
 </p>
 
 </div>
 
-The relationship between work hours per week and income class is the one
-that we seek to explore next. Individuals with income \>50k have longer
-average working hours per week than individuals with \<50k. But there
-are some individuals who have income \<50k, but have higher work hours.
+The box plots of all scaled numeric features categorized by the target
+variable is presented above. The target 0 is \<50k and the target 1 is
+\>=50k.
 
-<div class="figure">
+From the above plot, it can be inferred that, in general as age
+increases, i.e. experience level increases, there tends to be higher
+income levels.
 
-<img src="../results/work-hours.png" alt="Figure 1. Comparison of income levels w.r.t. average work hours per week." width="100%" />
+Individuals with income \>50k have longer average working hours per week
+than individuals with \<50k. But there are some individuals who have
+income \<50k, but have higher work hours.
 
-<p class="caption">
+Another important inference is that people with higher education levels
+earn more on an average than people with lower education levels.
 
-Figure 1. Comparison of income levels w.r.t. average work hours per
-week.
+Other numerical variables such as capital\_loss and capital\_gain tend
+to have very low median values but have a significantly high number of
+outliers.
 
-</p>
+The next area of concern is collinearity. When two numeric input
+variables are highly correlated, it is almost impossible to change the
+value of one input variable without changing the other. Hence, the
+coefficients become very sensitive to small changes in the model and the
+coefficient estimates tend to swing wildly. To address this, we plotted
+a correlation heatmap.
 
-</div>
+From the below correlation heatmap, we can observe that none of the
+numeric variables seem to be highly correlated. Hence, we decided to
+retain all the features except education (education and education.num
+present the same information) for training the model.
+
+<img src="../results/correlation_heatmap.png" width="1200" />
+
+### Model Selection
 
 We chose to build a simple classification model. To find the model that
 best predicted whether an individual earns \>50k or \<=50k, we performed
@@ -177,19 +196,19 @@ fit\_time
 
 <td style="text-align:right;">
 
-0.0274996
+0.025
 
 </td>
 
 <td style="text-align:right;">
 
-2.7122991
+2.944
 
 </td>
 
 <td style="text-align:right;">
 
-6.0950031
+7.354
 
 </td>
 
@@ -205,19 +224,19 @@ score\_time
 
 <td style="text-align:right;">
 
-0.0051007
+0.004
 
 </td>
 
 <td style="text-align:right;">
 
-0.0073028
+0.009
 
 </td>
 
 <td style="text-align:right;">
 
-0.1235027
+0.136
 
 </td>
 
@@ -233,19 +252,19 @@ test\_accuracy
 
 <td style="text-align:right;">
 
-0.6312732
+0.634
 
 </td>
 
 <td style="text-align:right;">
 
-0.8099776
+0.810
 
 </td>
 
 <td style="text-align:right;">
 
-0.8568353
+0.856
 
 </td>
 
@@ -261,19 +280,19 @@ train\_accuracy
 
 <td style="text-align:right;">
 
-0.6343551
+0.634
 
 </td>
 
 <td style="text-align:right;">
 
-0.8108986
+0.811
 
 </td>
 
 <td style="text-align:right;">
 
-0.9999269
+1.000
 
 </td>
 
@@ -289,19 +308,19 @@ test\_f1
 
 <td style="text-align:right;">
 
-0.2340038
+0.241
 
 </td>
 
 <td style="text-align:right;">
 
-0.6819067
+0.682
 
 </td>
 
 <td style="text-align:right;">
 
-0.6715969
+0.670
 
 </td>
 
@@ -317,19 +336,19 @@ train\_f1
 
 <td style="text-align:right;">
 
-0.2382800
+0.237
 
 </td>
 
 <td style="text-align:right;">
 
-0.6838424
+0.684
 
 </td>
 
 <td style="text-align:right;">
 
-0.9998478
+1.000
 
 </td>
 
@@ -339,15 +358,220 @@ train\_f1
 
 </table>
 
-Our prediction model performed quite well on test data, the confusion
-matrix below indicates it only made 1837 mistakes. However, most of the
-mistake are from the “\>=50K” group.
+### Feature Importance
+
+Looking through the feature importance of our model, we found some
+interesting information:
+
+It seems that married people usually have higher probability to gain
+more than 50k per year, especially for females (relationship\_Wife),
+while people who are never married have higher probability to gain less
+than 50k.
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
 <caption>
 
-Table 2. Confusion matrix of model performance on test data.
+Table 2. feature importance of final model
+
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+positive.feats
+
+</th>
+
+<th style="text-align:right;">
+
+positive.weights
+
+</th>
+
+<th style="text-align:left;">
+
+negative.feats
+
+</th>
+
+<th style="text-align:right;">
+
+negative.weights
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+native\_country\_ Japan
+
+</td>
+
+<td style="text-align:right;">
+
+0.984
+
+</td>
+
+<td style="text-align:left;">
+
+occupation\_ Priv-house-serv
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.801
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+relationship\_ Wife
+
+</td>
+
+<td style="text-align:right;">
+
+1.322
+
+</td>
+
+<td style="text-align:left;">
+
+native\_country\_ Peru
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.147
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marital\_status\_ Married-civ-spouse
+
+</td>
+
+<td style="text-align:right;">
+
+1.524
+
+</td>
+
+<td style="text-align:left;">
+
+marital\_status\_ Never-married
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.078
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+marital\_status\_ Married-AF-spouse
+
+</td>
+
+<td style="text-align:right;">
+
+1.668
+
+</td>
+
+<td style="text-align:left;">
+
+native\_country\_ Dominican-Republic
+
+</td>
+
+<td style="text-align:right;">
+
+\-1.037
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+capital\_gain
+
+</td>
+
+<td style="text-align:right;">
+
+2.242
+
+</td>
+
+<td style="text-align:left;">
+
+workclass\_ Without-pay
+
+</td>
+
+<td style="text-align:right;">
+
+\-0.970
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+### Results
+
+Our prediction model performed quite well on test data, the confusion
+matrix below indicates it only made 1837 mistakes, so the test accuracy
+is 0.812. It predicted 364 examples as belonging to “\>=50K” group while
+they actually belong to the “\<50K” group. These are termed as False
+Positives(FP). The model predicted 1473 as “\<50K” group while the
+actual prediction is “\>=50K”. These are termed as False Negatives(FN).
+The examples correctly predicted as belonging to “\<50K” group are
+termed as True Negatives(TN) and the examples correctly predicted as
+belonging to “\>=50K” group are termed as True Positives(TP). However,
+most of the mistake are from the “\>=50K” group.
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+
+<caption>
+
+Table 3. Confusion matrix of model performance on test data.
 
 </caption>
 
@@ -454,14 +678,16 @@ Reference
 </table>
 
 This problem is also reflected by the classification report, that the
-f1.score of “\>=50k” group is much lower than “\<50k” group. This model
-is not good enough to yet predict the income status of rich people.
+f1.score of “\>=50k” group is much lower than “\<50k” group. Precision
+is calculated as TP/(TP+FP) while Recall is calculated as (TP/TP+FN). f1
+score is the harmonic mean of Precision and Recall. This model is not
+good enough to yet predict the income status of rich people.
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 
 <caption>
 
-Table 3. Classification report of model performance on test data.
+Table 4. Classification report of model performance on test data.
 
 </caption>
 
@@ -515,25 +741,25 @@ support
 
 <td style="text-align:right;">
 
-0.9421580
+0.942
 
 </td>
 
 <td style="text-align:right;">
 
-0.8009997
+0.801
 
 </td>
 
 <td style="text-align:right;">
 
-0.8658635
+0.866
 
 </td>
 
 <td style="text-align:right;">
 
-7402.0000000
+7402
 
 </td>
 
@@ -549,59 +775,25 @@ support
 
 <td style="text-align:right;">
 
-0.5762371
+0.576
 
 </td>
 
 <td style="text-align:right;">
 
-0.8462188
+0.846
 
 </td>
 
 <td style="text-align:right;">
 
-0.6856067
+0.686
 
 </td>
 
 <td style="text-align:right;">
 
-2367.0000000
-
-</td>
-
-</tr>
-
-<tr>
-
-<td style="text-align:left;">
-
-accuracy
-
-</td>
-
-<td style="text-align:right;">
-
-0.8119562
-
-</td>
-
-<td style="text-align:right;">
-
-0.8119562
-
-</td>
-
-<td style="text-align:right;">
-
-0.8119562
-
-</td>
-
-<td style="text-align:right;">
-
-0.8119562
+2367
 
 </td>
 
@@ -617,25 +809,25 @@ macro avg
 
 <td style="text-align:right;">
 
-0.7591975
+0.759
 
 </td>
 
 <td style="text-align:right;">
 
-0.8236093
+0.824
 
 </td>
 
 <td style="text-align:right;">
 
-0.7757351
+0.776
 
 </td>
 
 <td style="text-align:right;">
 
-9769.0000000
+9769
 
 </td>
 
@@ -651,25 +843,25 @@ weighted avg
 
 <td style="text-align:right;">
 
-0.8534964
+0.853
 
 </td>
 
 <td style="text-align:right;">
 
-0.8119562
+0.812
 
 </td>
 
 <td style="text-align:right;">
 
-0.8221878
+0.822
 
 </td>
 
 <td style="text-align:right;">
 
-9769.0000000
+9769
 
 </td>
 
@@ -679,13 +871,16 @@ weighted avg
 
 </table>
 
-To further improve this model in future, there are several things we can
-suggest. First, we could consider to add some hyperparameters to control
-the machine learning process to get a better model. Second, we could
-look through the model to see if there are any feature(s) driving to a
-misclassification and explore whether any feature engineering could be
-used to help the model better predict on observations that it currently
-is making mistakes on.
+### Further Discussion
+
+To further improve this model in future, we have attempted tune
+hyperparameters and also applied feature selection on it. However, both
+approaches didn’t help to improve the model improvements. There are
+several things we can suggest which beyond our capability . First,
+exploring some method about feature engineering which might be helpful
+to improve the model performance. Second, because the misclassification
+is concentrated in \>50k group, having more data from that group will
+improve the prediction accuracy.
 
 # References
 

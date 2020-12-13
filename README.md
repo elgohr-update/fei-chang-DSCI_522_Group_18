@@ -13,7 +13,25 @@ The final report can be found [here](http://htmlpreview.github.io/?https://raw.g
 
 ## Usage
 
-To replicate the anlaysis, please clone this Github repository, install the dependencies listed below, and run the following commands in terminal from the root directory of the project
+##### 1. Using Docker
+
+note - the instructions in this section also depends on running this in a unix shell (e.g., terminal or Git Bash)
+
+To replicate the analysis, install [Docker](https://www.docker.com/get-started). Then clone this GitHub repository and run the following command at the command line/terminal from the root directory of this project:
+
+```
+docker run --rm -v /$(pwd):/home/rstudio/income_project yhchen20/income-prediction:latest make directory=/home/rstudio/income_project all
+```
+
+To reset the repo to a clean state, with no intermediate or results files, run the following command at the command line/terminal from the root directory of this project:
+
+```
+docker run --rm -v /$(pwd):/home/rstudio/income_project yhchen20/income-prediction:latest make directory=/home/rstudio/income_project clean
+```
+
+
+##### 2. Without using Docker
+To replicate the analysis, clone this GitHub repository, install the dependencies listed below, and run the following command at the command line/terminal from the root directory of this project:
 
 ```
 make all
@@ -53,8 +71,6 @@ make clean
     ggplot2==3.3.2
     
     reshape2==1.4.4
-    
-    cowplot==1.1.0
 
 * GNU make 4.2.1
 
